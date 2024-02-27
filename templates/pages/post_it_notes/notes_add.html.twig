@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_lst_post_it_notes_add' ? 'Ajouter' : 'Modifier') }}
+	une note
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_notes, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>{{ (app.request.get('_route') == 'app_lst_post_it_notes_add' ? 'Créer' : 'Modifier') }}
+					une note</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_notes.titre) }}
+				{{ form_widget(form_notes.titre) }}
+				{{ form_errors(form_notes.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_notes.contenu) }}
+				{{ form_widget(form_notes.contenu, {'attr': {'class': 'tinymce'}}) }}
+				{{ form_errors(form_notes.contenu) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_lst_post_it_notes_add' ? 'Créer' : 'Modifier') }}</button>
+		</div>
+	</div>
+	{{ form_end(form_notes) }}
+	<script src="{{ asset('js/tinymce.js') }}"></script>
+{% endblock %}

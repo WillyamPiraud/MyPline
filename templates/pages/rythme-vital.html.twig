@@ -1,0 +1,211 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Rythme Journalier
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 2rem; width: 100%;">Dans cette page, je crée MA ROUTINE DE VIE sur les<br>5 grands AXES ESSENTIELS à mon épanouissement personnel.<br>Sur les 24h que comporte chaque jour, quelle part de mon temps je souhaite consacrer à :</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-mes-besoins-vitaux.png') }}">
+					<a class="button-rythme" href="{{ path('app_rythme_vital_besoins_vitaux') }}" style="background: #F14C4C; font-size: 1.8rem">Mes besoins
+						<br>
+						Vitaux ?
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatut == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% elseif countStatut == 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatut == 3 %}
+							Rubrique complétée
+						{% elseif countStatut == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Ma routine cible
+							<span style="font-size: 0.8rem">(sur 24H)</span>
+						</p>
+						<h3 class="container-absolutes" style="position: relative;">{{ moyennePerDayBesoinVital }}
+							<p class="hour-absolute">{{ pourcentageBesoinVital }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_besoins_vitaux') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Mon temps réel</p>
+						<h3>50%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-obligation-domestique.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_obligations_familiales') }}" style="background: #F1F648; font-size: 1.8rem">Mes obligations
+						<br>
+						Familiales & Domestiques ?
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Ma vie est ponctuée d'obligations familiales et domestiques que je dois intégrer à mon emploi du temps. 
+																																																																						Elles sont variables d'une personne à l'autre selon l'âge, les situations personnelles, les accords familiaux et les choix de chacun mais jamais totalement inexistantes. Dans cette rubrique, j'indique quel temps hebdomadaire je souhaite consacrer à ces obligations
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countObligationFamiliale >= 1 %}
+						<a><img style="width: 150%; z-index: 1;" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countObligationFamiliale >= 1 %}
+							Rubrique complétée
+						{% else %}
+							Rubrique à saisir
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 class="container-absolutes" style="position: relative;">{{ moyennePerDayObligationFam }}
+							<p class="hour-absolute">{{ pourcentageObligationFam }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_obligations_familiales') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>17%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-activite-professionnel-formation.png') }}">
+					<a class="button-rythme" href="{{ path('app_activite_professionnel') }}" style="background: #F59F38; font-size: 1.8rem">Mes activités
+						<br>
+						Professionnelles ?</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countActiviteProfessionnelle >= 1 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countActiviteProfessionnelle >= 1 %}
+							Rubrique complétée
+						{% else %}
+							Rubrique à saisir
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 class="container-absolutes" style="position: relative;">{{ moyennePerDayActivitePro }}
+							<p class="hour-absolute">{{ pourcentageActivitePro }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_activite_professionnelle') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>16%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-loisir-vacance.png') }}">
+					<a class="button-rythme" href="{{ path('app_loisirs_vacances') }}" style="background: #60F538; font-size: 1.8rem">Mes loisirs
+						<br>
+						ou activités ?</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countMesLoisirs >= 1 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countMesLoisirs >= 1 %}
+							Rubrique complétée
+						{% else %}
+							Rubrique à saisir
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 class="container-absolutes" style="position: relative;">{{ moyennePerDayMesLoisirs }}
+							<p class="hour-absolute">{{ pourcentageMesLoisirs }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_mes_loisirs') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>12%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-lien-social.png') }}">
+					<a class="button-rythme" href="{{ path('app_liens_sociaux') }}" style="background: #31E1EA; font-size: 1.8rem">Mes liens
+						<br>
+						Sociaux ?</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countMesLiensSociaux >= 1 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countMesLiensSociaux >= 1 %}
+							Rubrique complétée
+						{% else %}
+							Rubrique à saisir
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 class="container-absolutes" style="position: relative;">{{ moyennePerDayLienSocial }}
+							<p class="hour-absolute">{{ pourcentageLienSocial }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_mes_liens_sociaux') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>5%</h3>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Waou -
+	{{ (app.request.get('_route') == 'app_metier_formation_add' ? 'Ajouter' : 'Modifier') }}
+	un metier ou une formation
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_metier, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>{{ (app.request.get('_route') == 'app_metier_formation_add' ? 'Ajouter' : 'Modifier') }}
+					un metier ou une formation</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.intitule) }}
+				{{ form_widget(form_metier.intitule) }}
+				{{ form_errors(form_metier.intitule) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.employeur) }}
+				{{ form_widget(form_metier.employeur) }}
+				{{ form_errors(form_metier.employeur) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.lundi) }}
+				{{ form_widget(form_metier.lundi) }}
+				{{ form_errors(form_metier.lundi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.mardi) }}
+				{{ form_widget(form_metier.mardi) }}
+				{{ form_errors(form_metier.mardi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.mercredi) }}
+				{{ form_widget(form_metier.mercredi) }}
+				{{ form_errors(form_metier.mercredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.jeudi) }}
+				{{ form_widget(form_metier.jeudi) }}
+				{{ form_errors(form_metier.jeudi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.vendredi) }}
+				{{ form_widget(form_metier.vendredi) }}
+				{{ form_errors(form_metier.vendredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.samedi) }}
+				{{ form_widget(form_metier.samedi) }}
+				{{ form_errors(form_metier.samedi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.dimanche) }}
+				{{ form_widget(form_metier.dimanche) }}
+				{{ form_errors(form_metier.dimanche) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_metier.type_metier) }}
+				{{ form_widget(form_metier.type_metier) }}
+				{{ form_errors(form_metier.type_metier) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_metier_formation_add' ? 'Créer' : 'Modifier') }}</button>
+		</div>
+	</div>
+
+	{{ form_end(form_metier) }}
+{% endblock %}

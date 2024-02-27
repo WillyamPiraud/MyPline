@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_ajouter_lien' ? 'Ajouter' : 'Modifier') }}
+	un lien social
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_lien) }}
+	{#{{ form_start(form_obligation_familiale) }}#}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				{% if app.request.get('_route') == 'app_rythme_vital_ajouter_mes_liens_sociaux' %}
+					<h1>Ajouter</h1>
+				{% else %}
+					<h1>Créer</h1>
+				{% endif %}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_lien.objet) }}
+				{{ form_widget(form_lien.objet) }}
+				{{ form_errors(form_lien.objet) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_lien.temps_prevue) }}
+				{{ form_widget(form_lien.temps_prevue) }}
+				{{ form_errors(form_lien.temps_prevue) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_lien.frequence) }}
+				{{ form_widget(form_lien.frequence) }}
+				{{ form_errors(form_lien.frequence) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_lien.nombre_action) }}
+				{{ form_widget(form_lien.nombre_action) }}
+				{{ form_errors(form_lien.nombre_action) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_lien.jour_recurrence) }}
+				{{ form_widget(form_lien.jour_recurrence) }}
+				{{ form_errors(form_lien.jour_recurrence) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_lien.lieu) }}
+				{{ form_widget(form_lien.lieu) }}
+				{{ form_errors(form_lien.lieu) }}
+			</div>
+			<button type="submit" onclick="submitForms()" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_mes_liens_sociaux' ? 'Créer' : 'Créer') }}</button>
+			{{ form_end(form_lien) }}
+		</div>
+	</div>
+	{#{{ form_end(form_obligation_familiale) }}#}
+	<script src="{{ asset('js/autoInput.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Mes Objectifs & Projets
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 2rem; width: 100%;">Être en bonne santé et le rester est essentiel à mon bien être et à la réalisation de mes projets de vie.<br>
+					Cette page m’aide à me fixer mes objectifs personnels de santé en complétant l’une ou plusieurs des rubriques ci-dessous</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Alimentation'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;" href="{{ path('app_rythme_vital_besoins_vitaux') }}">Alimentation - Hydratation
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Quel est mon objectif personnel pour améliorer mon alimentation ?
+																																																																																																																																																																																																																																																																																																																																																																																																								Il doit être clair, précis et vérifiable. Exemples : Manger au moins un fruit/jour, Faire un jeun intermittent, boire 1 litre d’eau/jour…
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="position: relative; border-radius: 0;">
+						<p class="title-statistique">Nombre d'objectifs<br>
+							<span style="font-size: 0.8rem">(en cours)</span>
+						</p>
+						<h3 style="position: relative; border-radius: 0;">{{ countAlimentation }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Alimentation'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser_activite', {'idSecteur' : 'Alimentation'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Sommeil'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Sommeil
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Quel est mon objectif personnel pour améliorer mon sommeil ? Il doit être clair, précis et vérifiable. Exemples : Aller me coucher à 22H chaque soir, Faire chaque jour une sieste de 30Min après le déjeuner, Ne plus regarder d’ordinateur/tablette/téléphone après  20H le soir…
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countSommeil }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Sommeil'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser_activite', {'idSecteur' : 'Sommeil'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Activite'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Activité
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Quel est mon objectif personnel d’activité nécessaire à ma santé ? Il doit être clair, précis et vérifiable. Exemples : Marcher au moins 1H chaque jour, Faire 10Min de jogging chaque jour, Faire 15 minutes d’étirements chaque jour…
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countActivite }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Activite'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser_activite', {'idSecteur' : 'Activite'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'BienEtre'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Bien être & Relaxation
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Quel est mon objectif personnel d’activité nécessaire à Mon bien être physique, mentale et spirituel ? Il doit être clair, précis et vérifiable. Exemples : Faire une séance de méditation de 15 minutes chaque matin, Lire 30 minutes chaque jour, Faire une séance de yoga par semaine …
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countBienEtre }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'BienEtre'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser_activite', {'idSecteur' : 'BienEtre'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Medical'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Soins & suivis médicaux
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Quel est mon objectif personnel de soins ou de suivi médical me permettant de prévenir les risques ? Il doit être clair, précis et vérifiable. Exemples : Faire une prise de sang de contrôle tous les ans, Faire un bilan cardio tous les 4 ans, Faire une cure annuelle de propolis chaque mois d’octobre...
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countMedical }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Medical'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser_activite', {'idSecteur' : 'Medical'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Comportement'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Stopper les comportements<br>
+						à risques
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Quels sont mes habitudes actuelles risquées pour le maintien de ma santé ? Quel est mon objectif pour les réduire/stopper ? Il doit être clair, précis et vérifiable. Exemples : Arrêter complètement de fumer, Réduire ma consommation d'alcool à 2 verres par semaine, Remplacer le beurre dans ma cuisine par de l’huile d’olive...
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countComportement }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Comportement'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser_activite', {'idSecteur' : 'Comportement'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Autres'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Autres
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Quel autre objectif personnel pour ma santé ? Il doit être clair, précis et vérifiable.
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countAutres }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_activite', {'secteur' : 'Sante', 'idSecteur': 'Autres'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser_activite', {'idSecteur' : 'Autres'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

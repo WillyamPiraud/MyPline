@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Créer une liste
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_todo, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>Créer une liste</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_todo.titre) }}
+				{{ form_widget(form_todo.titre) }}
+				{{ form_errors(form_todo.titre) }}
+			</div>
+
+			<button type="submit" class="button-submit btn-sub mb-3">Créer</button>
+		</div>
+	</div>
+	{{ form_end(form_todo) }}
+{% endblock %}

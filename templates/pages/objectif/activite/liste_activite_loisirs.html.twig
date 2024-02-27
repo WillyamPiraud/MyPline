@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Objectifs Activtés Professionnelles
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 2rem; width: 100%;">Avoir un travail (= une source de revenu) est essentiel à mon bien être et à la réalisation de mes projets de vie.<br>
+					Ce travail doit me plaire, avoir du sens et respecter un bon équilibre entre vie personnelle et vie professionnelle.<br>Dans cette page je fixe mes objectifs personnels d’évolution de ma situation professionnelle.
+				</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'SportLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;" href="{{ path('app_rythme_vital_besoins_vitaux') }}">Loisirs Physiques<br>& Sportifs
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="position: relative; border-radius: 0;">
+						<p class="title-statistique">Nombre d'objectifs<br>
+							<span style="font-size: 0.8rem">(en cours)</span>
+						</p>
+						<h3 style="position: relative; border-radius: 0;">{{ countSport }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'SportLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'SportLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'CulturelLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs Culturels<br>& Artistiques
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countCulture }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'CulturelLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'CulturelLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AirLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs de Plein Air
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countPlantation }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'AirLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AirLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'CreatifLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs Créatifs
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countCreatif }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'CreatifLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'CreatifLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EducatifLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs Intélectuels & Éducatifs
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countEducatif }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'EducatifLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EducatifLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'TechnoLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs Technologiques
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countTechno }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'TechnoLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'TechnoLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AnimalierLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs Animaliers
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countAnimalier }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'AnimalierLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AnimalierLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'RelationLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs de relations & bien être
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countRelation }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'RelationLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'RelationLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'VacancesLoisir'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Vacances - Séjours - Week-Ends
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countVacances }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite_loisir', {'secteur' : 'Activite', 'idSecteur': 'VacancesLoisir', 'typeActivity': 'Loisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'VacancesLoisir'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

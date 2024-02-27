@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste des besoins vitaux
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_routine_travail_add', {'type': type, 'id_type': id_type}) }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>Je liste toutes les tâches de mon métier que je réalise avec
+					<br>une fréquence régulière (tous les jours, semaine, mois...)
+					<br>
+					NB : Mes tâches ponctuelles seront renseignés ailleurs</h3>
+			</div>
+			{#<div class="container-cards">
+																																																																																																																																																																																																																								{% for entry in lstBesoinsVitaux %}
+																																																																																																																																																																																																																									<div class="card">
+																																																																																																																																																																																																																										<div class="image-title">
+																																																																																																																																																																																																																											{% if entry.intitule == 'Sommeil' %}
+																																																																																																																																																																																																																												<img src="{{ asset('img/picto-dormir.png') }}">
+																																																																																																																																																																																																																											{% elseif entry.intitule == 'Manger (Tps de preparation Repas inclus)' %}
+																																																																																																																																																																																																																												<img src="{{ asset('img/picto-manger.jpeg') }}">
+																																																																																																																																																																																																																											{% elseif entry.intitule == 'Se lever / s\'habiller et autres besoins de vie' %}
+																																																																																																																																																																																																																													<img src="{{ asset('img/picto-se-laver.jpeg') }}">
+																																																																																																																																																																																																																												{% else %}
+																																																																																																																																																																																																																													<img src="{{ asset('img/picto_autre_temps.png') }}">	
+																																																																																																																																																																																																																												{% endif %}
+																																																																																																																																																																																																																												{% if entry.intitule == 'Manger (Tps de preparation Repas inclus)' %}
+																																																																																																																																																																																																																													<h1 style="background: #F14C4C; color: white;">Manger <span style="font-size: 0.8rem"><br>(Tps de preparation Repas inclus)</span></h1>
+																																																																																																																																																																																																																												{% elseif entry.intitule == 'Se lever / s\'habiller et autres besoins de vie' %}
+																																																																																																																																																																																																																												<h1 style="background: #F14C4C; color: white;">S'entretenir
+																																																																																																																																																																																																																													<br><span style="font-size: 0.8rem">(Se lever, s'habiller et autres besoins de vie)</span>
+																																																																																																																																																																																																																												</h1>
+																																																																																																																																																																																																																											{% else %}
+																																																																																																																																																																																																																												<h1 style="background: #F14C4C; color: white;">{{ entry.intitule }}</h1>
+																																																																																																																																																																																																																												{% endif%}
+																																																																																																																																																																																																																											</div>
+																																																																																																																																																																																																																											<div class="container-actions">
+																																																																																																																																																																																																																												<div class="statistique-temps">
+																																																																																																																																																																																																																													<p>Usage de mon temps cible
+																																																																																																																																																																																																																														<span>(moyenne par jour)</span>
+																																																																																																																																																																																																																													</p>
+																																																																																																																																																																																																																													{% set totalSeconds = entry.lundi.getTimestamp() + entry.mardi.getTimestamp() + entry.mercredi.getTimestamp() + entry.jeudi.getTimestamp() + entry.vendredi.getTimestamp() + entry.samedi.getTimestamp() + entry.dimanche.getTimestamp() %}
+																																																																																																																																																																																																																													{% set averageSecondsPerDay = totalSeconds / 7 %}
+																																																																																																																																																																																																																													{% set averagePercentage = (averageSecondsPerDay / (24*3600)) * 100 %}
+																																																																																																																																																																																																																													{% set roundedPercentage = (averagePercentage * 2) | round / 2 %}
+																																																																																																																																																																																																																													{# arrondi au 0,5% le plus proche #}
+			{#
+																																																																																																																																																																																																																													{% set averageHoursPerDay = averageSecondsPerDay / 3600 %}
+																																																																																																																																																																																																																													{% set hours = (averageHoursPerDay * 2) | round / 2 | round(0, 'floor') %}
+																																																																																																																																																																																																																													{% set minutes = ((averageHoursPerDay * 60) % 60) | round %}
+																																																																																																																																																																																																																													{% set formattedTime = '%02dh%02d'|format(hours, minutes) %}
+																																																																																																																																																																																																																													<h2>{{ formattedTime }}</h2>
+																																																																																																																																																																																																																													<h2>{{ roundedPercentage }}%</h2>
+																																																																																																																																																																																																																												</div>
+																																																																																																																																																																																																																												<div class="container-action">
+																																																																																																																																																																																																																													{% if entry.intitule != 'Sommeil' and entry.intitule != 'Manger (Tps de preparation Repas inclus)' and entry.intitule != 'Se lever / s\'habiller et autres besoins de vie' %}
+																																																																																																																																																																																																																													<a class="delete-button" href="{{ path('app_rythme_vital_besoin_vital_delete', {'id' : entry.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce besoin vital ?')">
+																																																																																																																																																																																																																														<img src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+																																																																																																																																																																																																																													</a>
+																																																																																																																																																																																																																													{% else %}
+																																																																																																																																																																																																																												{% endif %}
+																																																																																																																																																																																																																												<a href="{{ path('app_rythme_vital_modifier_besoin_vital', {'id' : entry.id}) }}">
+																																																																																																																																																																																																																													<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+																																																																																																																																																																																																																												</a>
+																																																																																																																																																																																																																											</div>
+																																																																																																																																																																																																																											<div class="statistique-temps">
+																																																																																																																																																																																																																												<h2>33%</h2>
+																																																																																																																																																																																																																												<h2>08:00</h2>
+																																																																																																																																																																																																																											</div>
+																																																																																																																																																																																																																										</div>
+																																																																																																																																																																																																																									</div>
+																																																																																																																																																																																																																								{% endfor %}
+																																																																																																																																																																																																																									<div class="container-button-add">
+																																																																																																																																																																																																																										<a class="button-add" href="{{ path('app_rythme_vital_ajouter_besoin_vital') }}">Ajouter</a>
+																																																																																																																																																																																																																									</div>
+																																																																																																																																																																																																																					            #}
+
+
+			<div class="container-box">
+				{% for entry in lstRoutine%}
+					<div class="box">
+						<h1>{{ entry.intitule }}</h1>
+						<div class="container-info-box">
+							<div class="content-box">
+								<img src="{{ asset('img/icon-horloge.png') }}">
+								<h2>{{ entry.tempsPrevue.format('H:i') }}</h2>
+							</div>
+						</div>
+						<div class="container-info-box">
+							<div class="content-box">
+								<h2 style="width: 100%">{{ entry.frequence }}</h2>
+							</div>
+						</div>
+						<div class="container-info-box">
+							<div class="content-box">
+								<img src="{{ asset('img/picto-quantite.png') }}">
+								<h2 style="font-size: 2rem">{{ entry.nombreAction }}</h2>
+							</div>
+						</div>
+						{% if entry.lieu != null %}
+							<div class="container-info-box">
+								<div class="content-box">
+									<h2>{{ entry.lieu }}</h2>
+									<img src="{{ asset('img/picto-localisation.png') }}">
+								</div>
+							</div>
+							{% else %}
+						{% endif %}
+						<div class="container-info-box">
+							<div class="content-box">
+								<h2>{{ entry.premierJour|date('d-m-Y') }}</h2>
+								<img src="{{ asset('img/picto-calendrier.png') }}">
+							</div>
+						</div>
+						<div class="container-action-box">
+							<a class="delete-button" href="{{ path('app_routine_travail_delete', {'id': entry.id, 'type': entry.type, 'id_type' : entry.idType})}}" onclick="return confirm('Voulez-vous vraiment supprimer cette routine ?')">
+								<img src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+							</a>
+							<a href="{{ path('app_routine_travail_modify', {'id': entry.id, 'type': entry.type, 'id_type' : entry.idType })}}">
+								<img style="width: 60%" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	{% endblock %}

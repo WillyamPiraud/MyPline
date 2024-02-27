@@ -1,0 +1,326 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Rythme Journalier
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body element-to-scroll">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 3rem; width: 100%;">Au regard de ma situation personnelle quelle part<br>de mon temps dois-je consacrer à des obligations<br>Familiales et domestiques ?</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-soin-enfant.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lst_obligation_familiale', {'type': 'soin_enfant'}) }}" style="background: #F14C4C; font-size: 1.8rem">Soins aux enfants
+						<br>
+						(Petits enfants)
+						<div class="info-bubble-ob">
+							Quel temps hebdomadaire je consacre à prendre soin des enfants<br>(petits enfants), les aider avec leurs devoirs,<br>
+							les emmener à l'école, aux activités extra-scolaires, etc.
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutSoinE == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% elseif countStatutSoinE < 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutSoinE < 3 %}
+							Rubrique saisit en partie
+						{% elseif countStatutSoinE == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique complétée
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Ma routine cible
+							<span style="font-size: 0.8rem">(sur 24H)</span>
+						</p>
+						<h3 style="position: relative;">{{ moyenneTmpsSoinEnfant }}
+							<p class="hour-absolute">{{ pourcentageSoinEnfant }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_lst_obligation_familiale', {'type': 'soin_enfant'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Mon temps réel</p>
+						<h3>50%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-soutien-entourage.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lst_obligation_familiale', {'type': 'soutien_entourage'}) }}" style="background: #F1F648; font-size: 1.6rem">Soutien entourage familiale
+						<br>
+						(Pers. âgée ou malade)
+						<div class="info-bubble-ob">
+							Quel temps hebdomadaire je consacre à prendre soin des membres de ma famille qui ont besoin d'assistance en raison de l'âge, d'une maladie ou d'un handicap, etc.
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutSoutienE >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutSoutienE == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutSoutienE >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutSoutienE == 0  %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTmpsSoutienEntourage }}
+							<p class="hour-absolute">{{ pourcentageSoutienEntourage }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_lst_obligation_familiale', {'type': 'soutien_entourage'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>17%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-couple.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lst_obligation_familiale', {'type': 'echange_familiale'}) }}" style="background: #F59F38; font-size: 1.8rem">Échanges familiaux
+						<br>
+						(Conjoint)
+						<div class="info-bubble-ob">
+							Quel temps hebdomadaire je consacre à mon conjoint pour le maintient de l'harmonie du couple échanges, communication, convivialité...
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutEchanges >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutEchanges == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutEchanges >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutEchanges == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTmpsEchanges }}
+							<p class="hour-absolute">{{ pourcentageEchanges }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_lst_obligation_familiale', {'type': 'echange_familiale'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>16%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-entretien-foyer.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lst_obligation_familiale', {'type': 'entretien_foyer'}) }}" style="background: #60F538; font-size: 1.8rem">Entretien du
+						<br>
+						foyer
+						<div class="info-bubble-ob">
+							Quel temps hebdomadaire je consacre au nettoyage de la maison, de la lessive, de la vaisselle, au repasage, au rangement, et l'entretien général de l'espace de vie.....
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutEntretienF >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutEntretienF == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutEntretienF >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutEntretienF == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTmpsEntretienF }}
+							<p class="hour-absolute">{{ pourcentageEntretienF }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_lst_obligation_familiale', {'type': 'entretien_foyer'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>12%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-entretien-reparation.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lst_obligation_familiale', {'type': 'entretien_reparation'}) }}" style="background: #31E1EA; font-size: 1.6rem">Entretiens & création
+						<br>
+						Réparations domestiques
+						<div class="info-bubble-ob">
+							Quel temps hebdomadaire je consacre à un projet de création ou de rénovation de mon espace de vie.
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutEntretienR >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutEntretienR == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutEntretienR >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutEntretienR == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisir en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTmpsEntretienR }}
+							<p class="hour-absolute">{{ pourcentageEntretienR }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_lst_obligation_familiale', {'type': 'entretien_reparation'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>5%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-manger.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lst_obligation_familiale', {'type': 'preparation_repas'}) }}" style="background: #CF9EF7; font-size: 1.6rem">Préparation de repas
+						<br>
+						& courses alimentaires
+						<div class="info-bubble-ob">
+							Quel temps hebdomadaire je consacre à la préparation des repas, aux courses alimentaires...
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutPreparationR >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutPreparationR == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutPreparationR >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutPreparationR == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTmpsPreparationR }}
+							<p class="hour-absolute">{{ pourcentagePreparationR }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_lst_obligation_familiale', {'type': 'preparation_repas'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>5%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-gestion-financière.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lst_obligation_familiale', {'type': 'gestion_financiere'}) }}" style="background: #1DC1BF; font-size: 1.6rem">Gestion financière
+						<br>
+						& Administratives
+						<div class="info-bubble-ob">
+							Quel temps hebdomadaire je consacre à la gestion de mes finances personnelles et familiales, au paiement des factures, au traitement des démarches administratives, etc...
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutGestionF >= 1 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutGestionF >= 1 %}
+							Rubrique complétée
+						{% else %}
+							Rubrique à saisir
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTmpsGestionF }}
+							<p class="hour-absolute">{{ pourcentageGestionF }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_lst_obligation_familiale', {'type': 'gestion_financiere'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>5%</h3>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_besoin_vital' ? 'Ajouter' : 'Modifier') }}
+	un besoin vital
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{% if form_besoin_vital.vars.value.intitule == "Manger (Tps de preparation Repas inclus)" %}
+		{{ form_start(form_besoin_repas, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+		<div class="row container-principal-form">
+			<div class="col-8 mx-auto container-intro">
+				<div class="col-form" style="width: 100%;">
+					<h1>{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_besoin_vital' ? 'Ajouter' : 'Modifier') }}
+						un besoin vital</h1>
+				</div>
+				<div class="col-form">
+					<h1>Lundi :</h1>
+					{{ form_label(form_besoin_repas.lundi_petit_dejeuner) }}
+					{{ form_widget(form_besoin_repas.lundi_petit_dejeuner, {'attr': {'class': 'copy-petit-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.lundi_petit_dejeuner) }}
+					{{ form_label(form_besoin_repas.lundi_dejeuner) }}
+					{{ form_widget(form_besoin_repas.lundi_dejeuner, {'attr': {'class': 'copy-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.lundi_dejeuner) }}
+					{{ form_label(form_besoin_repas.lundi_dinner) }}
+					{{ form_widget(form_besoin_repas.lundi_dinner, {'attr': {'class': 'copy-dinner'}}) }}
+					{{ form_errors(form_besoin_repas.lundi_dinner) }}
+					<button type="button" style="width: 70%; font-size: 1.8rem; margin-top: 1%;" onclick="copyValuesRepas()">Mettre les mêmes valeurs pour chaque jours de la semaine</button>
+				</div>
+				<div class="col-form">
+					<h1>Mardi :</h1>
+					{{ form_label(form_besoin_repas.mardi_petit_dejeuner) }}
+					{{ form_widget(form_besoin_repas.mardi_petit_dejeuner, {'attr': {'class': 'petit-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.mardi_petit_dejeuner) }}
+					{{ form_label(form_besoin_repas.mardi_dejeuner) }}
+					{{ form_widget(form_besoin_repas.mardi_dejeuner, {'attr': {'class': 'dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.mardi_dejeuner) }}
+					{{ form_label(form_besoin_repas.mardi_dinner) }}
+					{{ form_widget(form_besoin_repas.mardi_dinner, {'attr': {'class': 'dinner'}}) }}
+					{{ form_errors(form_besoin_repas.mardi_dinner) }}
+				</div>
+				<div class="col-form">
+					<h1>Mercredi :</h1>
+					{{ form_label(form_besoin_repas.mercredi_petit_dejeuner) }}
+					{{ form_widget(form_besoin_repas.mercredi_petit_dejeuner, {'attr': {'class': 'petit-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.mercredi_petit_dejeuner) }}
+					{{ form_label(form_besoin_repas.mercredi_dejeuner) }}
+					{{ form_widget(form_besoin_repas.mercredi_dejeuner, {'attr': {'class': 'dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.mercredi_dejeuner) }}
+					{{ form_label(form_besoin_repas.mercredi_dinner) }}
+					{{ form_widget(form_besoin_repas.mercredi_dinner, {'attr': {'class': 'dinner'}}) }}
+					{{ form_errors(form_besoin_repas.mercredi_dinner) }}
+				</div>
+				<div class="col-form">
+					<h1>Jeudi :</h1>
+					{{ form_label(form_besoin_repas.jeudi_petit_dejeuner) }}
+					{{ form_widget(form_besoin_repas.jeudi_petit_dejeuner, {'attr': {'class': 'petit-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.jeudi_petit_dejeuner) }}
+					{{ form_label(form_besoin_repas.jeudi_dejeuner) }}
+					{{ form_widget(form_besoin_repas.jeudi_dejeuner, {'attr': {'class': 'dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.jeudi_dejeuner) }}
+					{{ form_label(form_besoin_repas.jeudi_dinner) }}
+					{{ form_widget(form_besoin_repas.jeudi_dinner, {'attr': {'class': 'dinner'}}) }}
+					{{ form_errors(form_besoin_repas.jeudi_dinner) }}
+				</div>
+				<div class="col-form">
+					<h1>Vendredi :</h1>
+					{{ form_label(form_besoin_repas.vendredi_petit_dejeuner) }}
+					{{ form_widget(form_besoin_repas.vendredi_petit_dejeuner, {'attr': {'class': 'petit-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.vendredi_petit_dejeuner) }}
+					{{ form_label(form_besoin_repas.vendredi_dejeuner) }}
+					{{ form_widget(form_besoin_repas.vendredi_dejeuner, {'attr': {'class': 'dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.vendredi_dejeuner) }}
+					{{ form_label(form_besoin_repas.vendredi_dinner) }}
+					{{ form_widget(form_besoin_repas.vendredi_dinner, {'attr': {'class': 'dinner'}}) }}
+					{{ form_errors(form_besoin_repas.vendredi_dinner) }}
+				</div>
+				<div class="col-form">
+					<h1>Samedi :</h1>
+					{{ form_label(form_besoin_repas.samedi_petit_dejeuner) }}
+					{{ form_widget(form_besoin_repas.samedi_petit_dejeuner, {'attr': {'class': 'petit-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.samedi_petit_dejeuner) }}
+					{{ form_label(form_besoin_repas.samedi_dejeuner) }}
+					{{ form_widget(form_besoin_repas.samedi_dejeuner, {'attr': {'class': 'dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.samedi_dejeuner) }}
+					{{ form_label(form_besoin_repas.samedi_dinner) }}
+					{{ form_widget(form_besoin_repas.samedi_dinner, {'attr': {'class': 'dinner'}}) }}
+					{{ form_errors(form_besoin_repas.samedi_dinner) }}
+				</div>
+				<div class="col-form">
+					<h1>Dimanche</h1>
+					{{ form_label(form_besoin_repas.dimanche_petit_dejeuner) }}
+					{{ form_widget(form_besoin_repas.dimanche_petit_dejeuner, {'attr': {'class': 'petit-dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.dimanche_petit_dejeuner) }}
+					{{ form_label(form_besoin_repas.dimanche_dejeuner) }}
+					{{ form_widget(form_besoin_repas.dimanche_dejeuner, {'attr': {'class': 'dejeuner'}}) }}
+					{{ form_errors(form_besoin_repas.dimanche_dejeuner) }}
+					{{ form_label(form_besoin_repas.dimanche_dinner) }}
+					{{ form_widget(form_besoin_repas.dimanche_dinner, {'attr': {'class': 'dinner'}}) }}
+					{{ form_errors(form_besoin_repas.dimanche_dinner) }}
+				</div>
+				<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_besoin_vital' ? 'Créer' : 'Modifier') }}</button>
+			</div>
+		</div>
+		{{ form_end(form_besoin_repas) }}
+	{% else %}
+		{{ form_start(form_besoin_vital, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+		<div class="row container-principal-form">
+			<div class="col-8 mx-auto container-intro">
+				<div class="col-form" style="width: 100%;">
+					<h1>{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_besoin_vital' ? 'Ajouter' : 'Modifier') }}
+						un besoin vital</h1>
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.intitule) }}
+					{{ form_widget(form_besoin_vital.intitule) }}
+					{{ form_errors(form_besoin_vital.intitule) }}
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.lundi) }}
+					{{ form_widget(form_besoin_vital.lundi, {'attr': {'class': 'copy-value'}}) }}
+					{{ form_errors(form_besoin_vital.lundi) }}
+					<button type="button" style="width: 70%; font-size: 1.8rem; margin-top: 1%;" onclick="copyValues()">Mettre les mêmes valeurs pour chaque jours de la semaine</button>
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.mardi) }}
+					{{ form_widget(form_besoin_vital.mardi) }}
+					{{ form_errors(form_besoin_vital.mardi) }}
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.mercredi) }}
+					{{ form_widget(form_besoin_vital.mercredi) }}
+					{{ form_errors(form_besoin_vital.mercredi) }}
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.jeudi) }}
+					{{ form_widget(form_besoin_vital.jeudi) }}
+					{{ form_errors(form_besoin_vital.jeudi) }}
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.vendredi) }}
+					{{ form_widget(form_besoin_vital.vendredi) }}
+					{{ form_errors(form_besoin_vital.vendredi) }}
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.samedi) }}
+					{{ form_widget(form_besoin_vital.samedi) }}
+					{{ form_errors(form_besoin_vital.samedi) }}
+				</div>
+				<div class="col-form">
+					{{ form_label(form_besoin_vital.dimanche) }}
+					{{ form_widget(form_besoin_vital.dimanche) }}
+					{{ form_errors(form_besoin_vital.dimanche) }}
+				</div>
+				<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_besoin_vital' ? 'Créer' : 'Modifier') }}</button>
+			</div>
+		</div>
+		{{ form_end(form_besoin_vital) }}
+	{% endif %}
+	<script src="{{ asset('js/autoInput.js') }}"></script>
+{% endblock %}

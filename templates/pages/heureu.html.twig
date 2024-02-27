@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}XXXXXXX - Devenir doublement heureux
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('accueil') }}
+{% endblock %}
+{#}
+{% block body %}
+	<div class="row">
+		<div class="col-8 mx-auto container-intro">
+			<div class="titre-principal">
+				<h1>DÉCOUV<spa class="other-color">REZ</span>
+				</h1>
+				<h1>
+					<span class="other-color">XXXXXX</span>XXXX</h1>
+			</div>
+			<div class="texte-intro">
+				<p>
+					Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+				</p>
+			</div>
+			<section style="margin-top: 3%; width: 100%; height: auto;">
+				<div class="grid-container-wrapper">
+					<div class="grid-container">
+						<div class="grid-item image">
+							<img src="{{ asset('img/famille_heureuse.jpg') }}" alt="Logo">
+						</div>
+						<div class="grid-item text">
+							<h1>XXXXXX, c'est quoi ?</h1>
+							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et sd</p>
+						</div>
+					</div>
+
+					<div class="grid-container">
+						<div class="grid-item text">
+							<h1>La méthode XXXXX</h1>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget ipsum nec sapien lacinia tincidunt. Donec id nunc rutrum, eleifend lacus sit amet, efficitur magna.</p>
+						</div>
+						<div class="grid-item image">
+							<img src="{{ asset('img/couple_heureu.jpg') }}" alt="Logo">
+						</div>
+					</div>
+
+					<div class="grid-container">
+						<div class="grid-item image">
+							<img src="{{ asset('img/famille_objectif.jpg') }}" alt="Logo">
+						</div>
+						<div class="grid-item text">
+							<h1>À chacun ses objectifs</h1>
+							<p>Aliquam erat volutpat. In interdum sapien id sem vulputate, eget interdum arcu auctor. Fusce feugiat varius tortor sed aliquet.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+{% endblock %}
+{#}
+{% block body %}
+	<div class="row">
+		<div class="col-8 mx-auto container-intro">
+			<div class="titre-principal">
+				<h1>Pour être doublement heureux</h1>
+				<h1>
+					<span class="other-color">Je dois avoir</h1>
+				</div>
+				<section style="margin-top: 3%; width: 100%; height: auto;">
+					<div class="grid-container-wrapper">
+						{% set gridContainers = [
+                        {
+                            'image': asset('img/famille_heureuse.jpg'),
+                            'title': 'UNE BONNE SANTE',
+                            'description': "Elle est essentielle et d'ailleurs on se la souhaite chaque 1er jour de l'an.",
+							'buttonText': 'Que faites vous pour avoir/conserver votre sante ?',
+                            'buttonLink': '#'
+                        },
+                        {
+                            'image': asset('img/couple_heureu.jpg'),
+                            'title': 'UNE BONNE SITUATION FINANCIÈRE',
+                            'description': 'Sans argent pas de projet, sentiment d\'une insécurité, de manque de confort.',
+							'buttonText': 'Donnez vous les moyens financiers nécessaires à vos envies ?',
+                            'buttonLink': '#'
+                        },
+                        {
+                            'image': asset('img/famille_objectif.jpg'),
+                            'title': 'UN VERITABLE EPANOUISSEMENT SOCIAL (Famille / Amis)',
+                            'description': 'L\'Humain n\'est, pas nature, pas programmer pour vivre seul.',
+							'buttonText': 'Que faites vous pour...',
+                            'buttonLink': '#'
+                        },
+                        {
+                            'image': asset('img/couple_heureu.jpg'),
+                            'title': 'Quels sont vos...',
+                            'description': 'Longue l\'ennuie dans notre ??? journée semble sans intêret.',
+							'buttonText': 'Quels sont vos...',
+                            'buttonLink': '#'
+                        },
+                    ] %}
+						{% for grid in gridContainers %}
+							<div class="grid-container{% if loop.index is even %} reverse{% endif %}">
+								<div class="grid-item image">
+									<img src="{{ grid.image }}" alt="Logo">
+								</div>
+								<div class="grid-item text">
+									<h1>{{ grid.title }}</h1>
+									<p>{{ grid.description }}</p>
+									<a href="{{ grid.buttonLink }}" class="button-home">{{ grid.buttonText }}</a>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</section>
+			</div>
+		</div>
+	{% endblock %}

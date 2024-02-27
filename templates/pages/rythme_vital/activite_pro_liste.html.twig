@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Activité Professionnelles et formation
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body element-to-scroll">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 2rem; width: 100%;">Quel temps journalier je consacre à mon travail<br>et/ou à mes études, à ma formation ?</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-mes-besoins-vitaux.png') }}">
+					<a class="button-rythme" href="{{ path('app_mon_metier', {'type' : "metier"}) }}" style="background: #F14C4C; font-size: 1.8rem">Métier :
+						<br>
+						Mon temps de travail
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutMetier == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% elseif countStatutMetier >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutMetier >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutMetier == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Ma routine cible
+							<span style="font-size: 0.8rem">(sur 24H)</span>
+						</p>
+						<h3 style="position: relative;">{{ moyenneTimeFormattedObligationMetier }}
+							<p class="hour-absolute">{{ pourcentageObligationMetierArrondi }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_besoins_vitaux') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Mon temps réel</p>
+						<h3>50%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-obligation-domestique.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_mon_metier', {'type': 'etude'}) }}" style="background: #F1F648; font-size: 1.8rem">Études :
+						<br>
+						Mon temps de scolarité
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutEtude == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% elseif countStatutEtude >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutEtude >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutEtude == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTimeFormattedObligationEtude }}
+							<p class="hour-absolute">{{ pourcentageObligationEtudeArrondi }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_obligations_familiales') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>17%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-activite-professionnel-formation.png') }}">
+					<a class="button-rythme" href="{{ path('app_mon_metier', {'type': 'formation'}) }}" style="background: #F59F38; font-size: 1.8rem">Ma formation
+						<br>
+						Personnelle</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutFormation == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% elseif countStatutFormation >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutFormation >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutFormation == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTimeFormattedObligationFormation }}
+							<p class="hour-absolute">{{ pourcentageObligationFormationArrondi }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_rythme_vital_activite_professionnelle') }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>16%</h3>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

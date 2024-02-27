@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}MyPline - Accueil
+			{% endblock %}
+		</title>
+		<!--=============== REMIXICONS ===============-->
+		<link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+		<meta name="description" content="Découvrez la meilleure plateforme pour atteindre vos objectifs. Notre plateforme vous permet d'integrer dans votre routine journalière, les actions pour atteindre vos objectifs petit à petit.">
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🎯</text></svg>">
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('headapp') }}
+		{% endblock %}
+	</head>
+
+	<!--=============== HEADER ===============-->
+	<header class="header">
+		<nav class="nav container">
+			<div class="nav__data">
+				<a href="#" class="nav__logo">
+					<i class="ri-planet-line"></i>
+					MyPline
+				</a>
+				<div class="nav__toggle" id="nav-toggle">
+					<i class="ri-menu-line nav__burger"></i>
+					<i class="ri-close-line nav__close"></i>
+				</div>
+			</div>
+
+			<!--=============== NAV MENU ===============-->
+			<div class="nav__menu" id="nav-menu">
+				<ul class="nav__list">
+					<li>
+						<a href="{{ path('app_home') }}" class="nav__link">Accueil</a>
+					</li>
+					<li>
+						<a href="{{ path('app_journalier') }}" class="nav__link">Journalier</a>
+					</li>
+					<!--=============== Dropdown 1 ===============-->
+					<li class="dropdown__item">
+						<div class="nav__link">
+							Routines
+							<i class="ri-arrow-down-s-line dropdown__arrow"></i>
+						</div>
+						<ul class="dropdown__menu">
+							<li>
+								<a href="{{ path('app_rythme_vital_besoins_vitaux') }}" class="dropdown__link">
+									<i class="ri-service-line"></i>
+									Vital
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_obligations_familiales') }}" class="dropdown__link">
+									<i class="ri-parent-line"></i>
+									Familiale
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_activite_professionnel') }}" class="dropdown__link">
+									<i class="ri-suitcase-line"></i>
+									Professionnelle
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_loisirs_vacances') }}" class="dropdown__link">
+									<i class="ri-run-line"></i>
+									Loisir
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_liens_sociaux') }}" class="dropdown__link">
+									<i class="ri-speak-fill"></i>
+									Social
+								</a>
+							</li>
+							<!--=============== Dropdown Submenu ===============-->
+							<li class="dropdown__subitem">
+								<div class="dropdown__link">
+									<i class="ri-vip-diamond-fill"></i>
+									Submenu
+									<i class="ri-add-line dropdown__add"></i>
+								</div>
+
+								<ul class="dropdown__submenu">
+									<li>
+										<a href="#" class="dropdown__sublink">
+											<i class="ri-file-text-line"></i>
+											Documents
+										</a>
+									</li>
+									<li>
+										<a href="#" class="dropdown__sublink">
+											<i class="ri-bill-fill"></i>
+											Factures
+										</a>
+									</li>
+									<li>
+										<a href="#" class="dropdown__sublink">
+											<i class="ri-refund-2-line"></i>
+											Remboursements
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<!--=============== Dropdown 2 ===============-->
+					<li class="dropdown__item">
+						<div class="nav__link">
+							Post-it & Notes
+							<i class="ri-arrow-down-s-line dropdown__arrow"></i>
+						</div>
+
+						<ul class="dropdown__menu">
+							<li>
+								<a href="{{ path('app_lst_calendrier_choses_a_faire') }}" class="dropdown__link">
+									<i class="ri-sticky-note-2-fill"></i>
+									Post-it
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_post_it_notes_mes_notes') }}" class="dropdown__link">
+									<i class="ri-file-paper-2-fill"></i>
+									Notes
+								</a>
+							</li>
+						</ul>
+					</li>
+					<!--=============== Dropdown 3 ===============-->
+					<li class="dropdown__item">
+						<div class="nav__link">
+							Listes & Documents
+							<i class="ri-arrow-down-s-line dropdown__arrow"></i>
+						</div>
+
+						<ul class="dropdown__menu">
+							<li>
+								<a href="{{ path('app_liste_document_liste') }}" class="dropdown__link">
+									<i class="ri-file-list-fill"></i>
+									Listes
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_post_it_notes_mes_notes') }}" class="dropdown__link">
+									<i class="ri-article-fill"></i>
+									Documents
+								</a>
+							</li>
+						</ul>
+					</li>
+					<!--=============== Dropdown 4 ===============-->
+					<li class="dropdown__item">
+						<div class="nav__link">
+							Objectifs
+							<i class="ri-arrow-down-s-line dropdown__arrow"></i>
+						</div>
+
+						<ul class="dropdown__menu">
+							<li>
+								<a href="{{ path('app_objectifs_sante', {'secteur' : 'Sante'}) }}" class="dropdown__link">
+									<i class="ri-mental-health-fill"></i>
+									Santé
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_objectifs_activity') }}" class="dropdown__link">
+									<i class="ri-riding-line"></i>
+									Activité
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_objectifs_sociabilite') }}" class="dropdown__link">
+									<i class="ri-speak-fill"></i>
+									Sociabilité
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_objectif_finance') }}" class="dropdown__link">
+									<i class="ri-cash-line"></i>
+									Finance
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+
+	<!-- Ancienne version du header
+																																																																																										<nav class="navigation-pages">
+																																																																																											<div class="container-button-accueil">
+																																																																																												<a href="{{ path('app_home') }}"><img src={{ asset('img/logo-sans-bg.png') }} alt="Logo"></a>
+																																																																																											</div>
+																																																																																											<div class="container-buttons">
+																																																																																												{% if app.user %}
+																																																																																													<a class="button-connexion" href="#">{{ app.user.prenom }}</a>
+																																																																																												{% else %}
+																																																																																													<a class="button-connexion" href="{{ path('app_login') }}">Connexion</a>
+																																																																																												{% endif %}
+																																																																																												<a class="buttons-nav titleImage" style="padding: 2%; width: 30%">
+																																																																																													
+																																																																																													
+																																																																																												</a>
+																																																																																												<a class="buttons-nav">Vidéo d'Utilisation de
+																																																																																													<br>Cette Page</a>
+																																																																																											</div>
+																																																																																										</nav>
+																																																																																										-->
+	<body>
+		{% block body %}{% endblock %}
+
+		<footer>
+			<div class="waves">
+				<div style="background: url({{ asset('img/wave.png') }});" class="wave" id="wave1"></div>
+				<div style="background: url({{ asset('img/wave.png') }});" class="wave" id="wave2"></div>
+				<div style="background: url({{ asset('img/wave.png') }});" class="wave" id="wave3"></div>
+				<div style="background: url({{ asset('img/wave.png') }});" class="wave" id="wave4"></div>
+			</div>
+			<ul class="social_icon">
+				<li>
+					<a href="#">
+						<ion-icon name="logo-facebook"></ion-icon>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<ion-icon name="logo-youtube"></ion-icon>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<ion-icon name="logo-linkedin"></ion-icon>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<ion-icon name="logo-instagram"></ion-icon>
+					</a>
+				</li>
+			</ul>
+			<ul class="menu">
+				<li>
+					<a href="#">Journalier</a>
+				</li>
+				<li>
+					<a href="#">Objectifs</a>
+				</li>
+				<li>
+					<a href="#">Plan d'Actions</a>
+				</li>
+				<li>
+					<a href="#">A propos</a>
+				</li>
+			</ul>
+			<p>©MyPline / Tous droits reservés</p>
+		</footer>
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+	</body>
+
+
+	<script type="text/javascript">
+		$(function () {
+$(window).on("scroll", function () {
+if ($(this).scrollTop() > 50) {
+$(".navigation-pages").addClass("scrolled");
+$(".element-to-scroll").addClass("element-scrolled");
+} else {
+$(".navigation-pages").removeClass("scrolled");
+$(".element-to-scroll").removeClass("element-scrolled");
+}
+});
+});
+	</script>
+	<script type="text/javascript">
+		function showMenu(toggleId, navId) {
+const toggle = document.getElementById(toggleId),
+nav = document.getElementById(navId);
+
+console.log(toggle, nav); // Check the values in the console
+
+toggle.addEventListener("click", function () {
+nav.classList.toggle("show-menu");
+toggle.classList.toggle("show-icon");
+});
+}
+
+showMenu('nav-toggle', 'nav-menu');
+	</script>
+</html>

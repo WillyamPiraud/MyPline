@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_mes_liens_sociaux' ? 'Ajouter' : 'Modifier') }}
+	un lien social
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_mes_liens_sociaux, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_mes_liens_sociaux' ? 'Ajouter' : 'Modifier') }}
+					un lien social</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.objet) }}
+				{{ form_widget(form_mes_liens_sociaux.objet) }}
+				{{ form_errors(form_mes_liens_sociaux.objet) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.lundi) }}
+				{{ form_widget(form_mes_liens_sociaux.lundi) }}
+				{{ form_errors(form_mes_liens_sociaux.lundi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.mardi) }}
+				{{ form_widget(form_mes_liens_sociaux.mardi) }}
+				{{ form_errors(form_mes_liens_sociaux.mardi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.mercredi) }}
+				{{ form_widget(form_mes_liens_sociaux.mercredi) }}
+				{{ form_errors(form_mes_liens_sociaux.mercredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.jeudi) }}
+				{{ form_widget(form_mes_liens_sociaux.jeudi) }}
+				{{ form_errors(form_mes_liens_sociaux.jeudi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.vendredi) }}
+				{{ form_widget(form_mes_liens_sociaux.vendredi) }}
+				{{ form_errors(form_mes_liens_sociaux.vendredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.samedi) }}
+				{{ form_widget(form_mes_liens_sociaux.samedi) }}
+				{{ form_errors(form_mes_liens_sociaux.samedi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_liens_sociaux.dimanche) }}
+				{{ form_widget(form_mes_liens_sociaux.dimanche) }}
+				{{ form_errors(form_mes_liens_sociaux.dimanche) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_mes_liens_sociaux' ? 'Créer' : 'Créer') }}</button>
+		</div>
+	</div>
+	{{ form_end(form_mes_liens_sociaux) }}
+{% endblock %}

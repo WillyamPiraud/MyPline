@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Waou -
+	{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_activite_professionnelle' ? 'Ajouter' : 'Modifier') }}
+	une activite professionnelle
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_activite_professionnelle, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_activite_professionnelle' ? 'Ajouter' : 'Modifier') }}
+					une activite professionnelle</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.objet) }}
+				{{ form_widget(form_activite_professionnelle.objet) }}
+				{{ form_errors(form_activite_professionnelle.objet) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.lundi) }}
+				{{ form_widget(form_activite_professionnelle.lundi) }}
+				{{ form_errors(form_activite_professionnelle.lundi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.mardi) }}
+				{{ form_widget(form_activite_professionnelle.mardi) }}
+				{{ form_errors(form_activite_professionnelle.mardi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.mercredi) }}
+				{{ form_widget(form_activite_professionnelle.mercredi) }}
+				{{ form_errors(form_activite_professionnelle.mercredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.jeudi) }}
+				{{ form_widget(form_activite_professionnelle.jeudi) }}
+				{{ form_errors(form_activite_professionnelle.jeudi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.vendredi) }}
+				{{ form_widget(form_activite_professionnelle.vendredi) }}
+				{{ form_errors(form_activite_professionnelle.vendredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.samedi) }}
+				{{ form_widget(form_activite_professionnelle.samedi) }}
+				{{ form_errors(form_activite_professionnelle.samedi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_activite_professionnelle.dimanche) }}
+				{{ form_widget(form_activite_professionnelle.dimanche) }}
+				{{ form_errors(form_activite_professionnelle.dimanche) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_activite_professionnelle' ? 'Créer' : 'Modifier') }}</button>
+		</div>
+	</div>
+
+	{{ form_end(form_activite_professionnelle) }}
+{% endblock %}

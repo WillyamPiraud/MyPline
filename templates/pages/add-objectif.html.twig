@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+	<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+	<script src="{{ asset('js/particles.js') }}"></script>
+{% endblock %}
+
+{% block title %}Waou - Objectif
+	{{ secteur }}
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>Créer un Objectif
+					{{ secteur }}</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form.titre) }}
+				{{ form_widget(form.titre) }}
+				{{ form_errors(form.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form.action) }}
+				{{ form_widget(form.action) }}
+				{{ form_errors(form.action) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form.date_fin) }}
+				{{ form_widget(form.date_fin) }}
+				{{ form_errors(form.date_fin) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">Créer</button>
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

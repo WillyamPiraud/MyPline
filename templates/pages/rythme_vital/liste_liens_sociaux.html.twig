@@ -1,0 +1,319 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liens Sociaux
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body element-to-scroll">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 3rem; width: 100%;">Il est essentiel de passer du temps avec la famille, les<br>amis et de rencontrer d'autres personnes.<br>J'indique dans cette page uniquement mes activités<br>sociales programmées avec une frequence régulière.</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-reunion-famille.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lien_sociaux', {'type': 'reunion_famille'}) }}" style="background: #F14C4C; font-size: 1.8rem">Réunion & Repas
+						<br>
+						de famille
+						<div class="info-bubble-ob">
+							Est ce que je programme à une fréquence régulière<br>
+							des réunions, repas ou occasions spéciales en famille ?
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutReunionF == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% elseif countStatutReunionF < 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutReunionF < 3 %}
+							Rubrique saisit en partie
+						{% elseif countStatutReunionF == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique complétée
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Ma routine cible
+							<span style="font-size: 0.8rem">(sur 24H)</span>
+						</p>
+						<h3 style="position: relative;">{{ moyenneTimeFormattedLienSociauxReunionF }}
+							<p class="hour-absolute">{{ pourcentageLienSociauxReunionFArrondi }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_loisir_vacance', {'type': 'tele_cine'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique" style="position: relative;">
+						<p class="title-statistique">Mon temps réel</p>
+						<h3>50%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-reunion-amis.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lien_sociaux', {'type': 'reunion_amis'}) }}" style="background: #F1F648; font-size: 1.6rem">Réunion & Repas
+						<br>
+						entre amis
+						<div class="info-bubble-ob">
+							Est ce que je programme à une fréquence régulière des réunions, repas ou occasions spéciales entre amis ?
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutReunionA >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutReunionA == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutReunionA >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutReunionA == 0  %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTimeFormattedLienSociauxReunionA }}
+							<p class="hour-absolute">{{ pourcentageLienSociauxReunionAArrondi }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_loisir_vacance', {'type': 'sport'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>17%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-fete.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lien_sociaux', {'type': 'fete'}) }}" style="background: #F59F38; font-size: 1.8rem">Fêtes & célébrations<br>& Événements
+						<div class="info-bubble-ob">
+							Est ce que je participe à une fréquence régulière  à des événements spéciaux, à des célébrations culturelles spécifiques ?
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutFete >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutFete == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutFete >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutFete == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTimeFormattedLienSociauxFete }}
+							<p class="hour-absolute">{{ pourcentageLienSociauxFeteArrondi }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_loisir_vacance', {'type': 'lecture'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>16%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-association.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lien_sociaux', {'type': 'association'}) }}" style="background: #60F538; font-size: 1.8rem">Réunions associatives
+						<br>
+						& Communales
+						<div class="info-bubble-ob">
+							Est ce que je participe à une fréquence régulière à des réunions de clubs, de communes, d'associations ?
+						</div>
+					</a>
+				</div>
+				<div class="col-4 plus_moins container-relative">
+					{% if countStatutAssociation >= 3 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+					{% elseif countStatutAssociation == 0 %}
+						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+					{% else %}
+						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+					{% endif %}
+					<div class="info-bubble">
+						{% if countStatutAssociation >= 3 %}
+							Rubrique complétée
+						{% elseif countStatutAssociation == 0 %}
+							Rubrique à saisir
+						{% else %}
+							Rubrique saisit en partie
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">{{ moyenneTimeFormattedLienSociauxAssociation }}
+							<p class="hour-absolute">{{ pourcentageLienSociauxAssociationArrondi }}%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_loisir_vacance', {'type': 'musique'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>12%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-benevolat.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lien_sociaux', {'type': 'benevolat'}) }}" style="background: #31E1EA; font-size: 1.6rem">Activités bénévoles
+						<div class="info-bubble-ob">
+							Est ce que je m’engage à une fréquence régulière  dans des activités bénévoles et de partages ?
+						</div>
+					</a>
+				</div>
+				<div
+					class="col-4 plus_moins container-relative">{#{% if countStatutEntretienR >= 3 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			{% elseif countStatutEntretienR == 0 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			{% else %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			{% endif %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			<div class="info-bubble">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				{% if countStatutEntretienR >= 3 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					Rubrique complétée
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				{% elseif countStatutEntretienR == 0 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					Rubrique à saisir
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				{% else %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					Rubrique saisir en partie
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				{% endif %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			</div>#}
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">1h00
+							<p class="hour-absolute">4%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_loisir_vacance', {'type': 'art_creatif'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>5%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-atelier-club.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lien_sociaux', {'type': 'cours'}) }}" style="background: #CF9EF7; font-size: 1.6rem">Cours, ateliers<br>& clubs
+						<div class="info-bubble-ob">
+							Est ce que je participe à une fréquence régulière à des cours, des ateliers ou à des clubs autour d'un intérêt commun en me permettant de rencontrer des personnes partageant les mêmes passions ?
+						</div>
+					</a>
+				</div>
+				<div
+					class="col-4 plus_moins container-relative">{#{% if countStatutPreparationR >= 3 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					{% elseif countStatutPreparationR == 0 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					{% else %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<a><img style="width: 150%" src="{{ asset('img/saisit-en-partie.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					{% endif %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<div class="info-bubble">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						{% if countStatutPreparationR >= 3 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							Rubrique complétée
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						{% elseif countStatutPreparationR == 0 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							Rubrique à saisir
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						{% else %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							Rubrique saisit en partie
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						{% endif %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>#}
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">3h00
+							<p class="hour-absolute">12%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_loisir_vacance', {'type': 'voyage'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>5%</h3>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-4 button-menu-icon responsive-top-border" style="border: none;">
+					<img src="{{ asset('img/picto-other.png') }}">
+					<a class="container-relative button-rythme" href="{{ path('app_lien_sociaux', {'type': 'autre'}) }}" style="background: #1DC1BF; font-size: 1.6rem">Autres activités<br>
+						de sociabilisation
+						<div class="info-bubble-ob">
+							Quel temps je consacre de manière régulière à d’autres activités collectives ?
+						</div>
+					</a>
+				</div>
+				<div
+					class="col-4 plus_moins container-relative">{#{% if countStatutGestionF >= 1 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<a><img style="width: 150%" src="{{ asset('img/picto-saisit.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							{% else %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<a><img style="width: 150%" src="{{ asset('img/picto-a-saisir.png') }}"></a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							{% endif %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<div class="info-bubble">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								{% if countStatutGestionF >= 1 %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									Rubrique complétée
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								{% else %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									Rubrique à saisir
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								{% endif %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							</div>#}
+				</div>
+				<div class="col-7 container-statistique">
+					<a class="button-statistique">
+						<h3 style="position: relative;">2h30
+							<p class="hour-absolute">10%</p>
+						</h3>
+					</a>
+					<a href="{{ path('app_loisir_vacance', {'type': 'autre'}) }}" class="container-relative button-statistique click">
+						<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+						<div class="info-bubble">Modifier</div>
+					</a>
+					<a class="button-statistique">
+						<h3>5%</h3>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

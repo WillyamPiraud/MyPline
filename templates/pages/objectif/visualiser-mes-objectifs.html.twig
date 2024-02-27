@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste des objectifs
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section style="margin-top: 15%" class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_form_objectif', {'secteur': secteur}) }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>Dans cette page, vous pouvez visualiser vos différents objectifs et créer votre plan d'action</h3>
+			</div>
+			<div class="container-cards">
+				{% for entry in lstObjectifs %}
+					<div class="card">
+						<div class="image-title">
+							<h1 style="border: 2px solid #112D4E;">{{ entry.titre }}</h1>
+						</div>
+						<div class="container-actions" style="justify-content: center;">
+							<div class="container-action">
+								<a class="container-relative" href="{{ path('app_modifier_form_objectif', {'id' : entry.id, 'secteur': secteur}) }}">
+									<img style="width: 100%;" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+									<div class="info-bubble">Modifier</div>
+								</a>
+								<a class="container-relative delete-button" href="{{ path('app_objectif_delete', {'id' : entry.id, 'secteur': secteur}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cet objectif ?')">
+									<img style="width: 100%;" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+									<div class="info-bubble">Supprimer</div>
+								</a>
+								<a class="container-relative delete-button" href="{{ path('app_visualiser_plan_action', {'id' : entry.id}) }}">
+									<img style="width: 100%;" src="{{ asset('img/icon-pda.png') }}" alt="Plan d'action">
+									<div class="info-bubble">Plan d'action</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="container-button-add">
+					<a class="button-add" href="{{ path('app_form_objectif', {'secteur': secteur}) }}">Ajouter</a>
+				</div>
+			</div>
+		</section>
+	{% endblock %}

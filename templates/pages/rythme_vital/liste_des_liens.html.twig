@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste des liens sociaux
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_ajouter_lien', {'type': type }) }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>{{ texteIntro }}</h3>
+			</div>
+			<div class="container-cards">
+				{% for entry in lst_obligations %}
+					<div class="card">
+						<div class="image-title">
+							{% if type == "reunion_famille" %}
+								<img src="{{ asset('img/picto-reunion-famille.png') }}">
+							{% elseif type == "reunion_amis" %}
+								<img src="{{ asset('img/picto-reunion-amis.png') }}">
+							{% elseif type == "fete" %}
+								<img src="{{ asset('img/picto-fete.png') }}">
+							{% elseif type == "association" %}
+								<img src="{{ asset('img/picto-association.png') }}">
+							{% elseif type == "benevolat" %}
+								<img src="{{ asset('img/picto-benevolat.png') }}">
+							{% elseif type == "cours" %}
+								<img src="{{ asset('img/picto-atelier-club.png') }}">
+							{% else %}
+								<img src="{{ asset('img/picto-other.png') }}">
+							{% endif %}
+							<h1>{{ entry.objet }}</h1>
+						</div>
+						<div class="container-actions">
+							<div class="statistique-temps">
+								<p>Usage de mon temps cible
+									<span>(moyenne par jour)</span>
+								</p>
+								{% set totalSeconds = entry.tempsPrevue.getTimestamp() %}
+								{% set averageSecondsPerDay = totalSeconds / 7 %}
+								{% set averagePercentage = (averageSecondsPerDay / (24*3600)) * 100 %}
+								{% set roundedPercentage = (averagePercentage * 2) | round / 2 %}
+								{# arrondi au 0,5% le plus proche #}
+								{% set averageHoursPerDay = averageSecondsPerDay / 3600 %}
+								{% set hours = (averageHoursPerDay * 2) | round / 2 | round(0, 'floor') %}
+								{% set minutes = ((averageHoursPerDay * 60) % 60) | round %}
+								{% set formattedTime = '%02dh%02d'|format(hours, minutes) %}
+								<h2>{{ formattedTime }}</h2>
+								<h2>{{ roundedPercentage }}%</h2>
+							</div>
+							<div class="container-action">
+								<a href="{{ path('app_modifier_lien', {'type' : entry.getTypeLoisir(),'id' : entry.id}) }}">
+									<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+								</a>
+							</div>
+							<div class="statistique-temps">
+								<h2>08:00</h2>
+								<h2>33%</h2>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="container-button-add">
+					<a class="button-add" href="{{ path('app_ajouter_lien', {'type': type }) }}">Ajouter</a>
+				</div>
+			</div>
+		</section>
+	{% endblock %}

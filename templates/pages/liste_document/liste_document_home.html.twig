@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Mes Listes et Documents
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="accueil_post_it_notes element-to-scroll">
+		<div class="choice_post_it_or_notes">
+			<a href="{{ path('app_liste_document_liste') }}">Mes Listes</a>
+			<a href="{{ path('app_post_it_notes_mes_notes') }}">Mes Documents</a>
+		</div>
+	</section>
+{% endblock %}

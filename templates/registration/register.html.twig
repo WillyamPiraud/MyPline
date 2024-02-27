@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire sur Waou
+{% endblock %}
+{% block head %}
+	<head>
+		<script src="https://kit.fontawesome.com/ca160c7f60.js" crossorigin="anonymous"></script>
+	</head>
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('registration') }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-form {% if app.request.attributes.get('_route') == 'app_register' %}sign-up-mode{% endif %}">
+		<div class="forms-container">
+			<div class="signin-signup">
+				{% if app.request.get('_route') == 'app_login' %}
+					{% if error %}
+						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
+					<!--<form method="post" class="sign-in-form">
+																																																																												<h2 class="title">Se connecter</h2>
+																																																																												<div class="input-field">
+																																																																													<i class="ri-mail-line"></i>
+																																																																													<input type="email" {#value="{{ last_username }}"#} name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Entrez votre E-mail">
+																																																																												</div>
+																																																																												<div class="input-field">
+																																																																													<i class="ri-lock-line"></i>
+																																																																													<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+																																																																												</div>
+																																																																												<input type="submit" value="Se Connecter" class="btn solid">
+																																																																											</form>-->
+
+					<form method="post">
+						<h2 class="title">Se connecter</h2>
+						<div class="input-field">
+							<i class="ri-mail-line"></i>
+							<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="E-mail">
+						</div>
+						<div class="input-field">
+							<i class="ri-lock-line"></i>
+							<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+						</div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						<input type="submit" value="Se Connecter" class="btn solid">
+					</form>
+
+					{% else %}
+				{% endif %}
+				{% if app.request.get('_route') == 'app_register' %}
+					{{ form_start(registrationForm, {'attr': {'class': 'sign-up-form'}}) }}
+					<h2 class="title">Créer sont compte</h2>
+					<div class="input-field">
+						<i class="ri-mail-line"></i>
+						{{ form_widget(registrationForm.email) }}
+						{{ form_errors(registrationForm.email) }}
+					</div>
+					<div class="input-field">
+						<i class="ri-user-line"></i>
+						{{ form_widget(registrationForm.prenom) }}
+						{{ form_errors(registrationForm.prenom) }}
+					</div>
+					<div class="input-field">
+						<i class="ri-user-line"></i>
+						{{ form_widget(registrationForm.nom) }}
+						{{ form_errors(registrationForm.nom) }}
+					</div>
+					<div class="input-field">
+						<i class="ri-phone-fill"></i>
+						{{ form_widget(registrationForm.telephone) }}
+						{{ form_errors(registrationForm.telephone) }}
+					</div>
+					<div class="input-field">
+						<i class="ri-lock-line"></i>
+						{{ form_widget(registrationForm.plainPassword) }}
+						{{ form_errors(registrationForm.plainPassword) }}
+					</div>
+					<input type="submit" value="Créer" class="btn solid">
+					{{ form_end(registrationForm) }}
+					{% else %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="panels-container">
+			<div class="panel left-panel">
+				<div class="content">
+					<h3>Nouveau ici ?</h3>
+					<p>Rejoingez-nous pour changer votre vie actuel et atteindre vos objectifs pour devenir heureu !</p>
+					<button onclick="window.location='{{ path('app_register') }}'" class="btn transparent" id="sign-up-btn" style="margin: 0;
+																																																																																																																																																																																																												    background: none;
+																																																																																																																																																																																																												    border: 2px solid #fff;
+																																																																																																																																																																																																												    width: 130px;
+																																																																																																																																																																																																												    height: 41px;
+																																																																																																																																																																																																												    font-weight: 600;
+																																																																																																																																																																																																												    font-size: 0.8rem;" id="sign-up-btn">Créer un compte</button>
+				</div>
+				<img src="{{ asset('img/login.svg') }}" class="image" alt="Illustration Connexion">
+			</div>
+
+			<div class="panel right-panel">
+				<div class="content">
+					<h3>Vous avez un compte ?</h3>
+					<p>Connectez-vous pour créer et atteindre vos objectifs pour devenir heureu !</p>
+					<button onclick="window.location='{{ path('app_login') }}'" class="btn transparent" id="sign-in-btn" style="margin: 0;
+																																																																																																																																																																																																															    background: none;
+																																																																																																																																																																																																															    border: 2px solid #fff;
+																																																																																																																																																																																																															    width: 130px;
+																																																																																																																																																																																																															    height: 41px;
+																																																																																																																																																																																																															    font-weight: 600;
+																																																																																																																																																																																																															    font-size: 0.8rem;" id="sign-in-btn">Se connecter</button>
+				</div>
+				<img src="{{ asset('img/register.svg') }}" class="image" alt="Illustration Creation de compte">
+			</div>
+		</div>
+	</div>
+	<script src="{{ asset('js/login_form.js') }}"></script>
+
+	<!--	<form method="post" class="element-to-scroll">
+																																																																									<div class="row container-principal-form">
+																																																																										<div class="col-8 mx-auto container-intro">
+																																																																											{#{{ form_errors(registrationForm) }}
+																																																																							
+																																																																											{{ form_start(registrationForm) }}
+																																																																											<div class="col-form">
+																																																																												<h1 class="h3 mb-3 mt-3 font-weight-normal">Inscrivez-vous</h1>
+																																																																											</div>
+																																																																							
+																																																																											<div class="col-form">
+																																																																												<h2>{{ form_label(registrationForm.email) }}</h2>
+																																																																												{{ form_widget(registrationForm.email) }}
+																																																																												{{ form_errors(registrationForm.email) }}
+																																																																											</div>
+																																																																											<div class="col-form">
+																																																																												<h2>{{ form_label(registrationForm.prenom) }}</h2>
+																																																																												{{ form_widget(registrationForm.prenom) }}
+																																																																												{{ form_errors(registrationForm.prenom) }}
+																																																																											</div>
+																																																																											<div class="col-form">
+																																																																												<h2>{{ form_label(registrationForm.nom) }}</h2>
+																																																																												{{ form_widget(registrationForm.nom) }}
+																																																																												{{ form_errors(registrationForm.nom) }}
+																																																																											</div>
+																																																																											<div class="col-form">
+																																																																												<h2>{{ form_label(registrationForm.telephone) }}</h2>
+																																																																												{{ form_widget(registrationForm.telephone) }}
+																																																																												{{ form_errors(registrationForm.telephone) }}
+																																																																											</div>
+																																																																											<div class="col-form">
+																																																																												<h2>
+																																																																													<label>Mot de passe</label>
+																																																																												</h2>
+																																																																												{{ form_widget(registrationForm.plainPassword) }}
+																																																																												{{ form_errors(registrationForm.plainPassword) }}
+																																																																											</div>
+																																																																											<div class="col-form">
+																																																																												{{ form_row(registrationForm.agreeTerms) }}
+																																																																											</div>
+																																																																							
+																																																																											<button type="submit" class="button-submit btn-sub mb-3">S'inscrire</button>
+																																																																											{{ form_end(registrationForm) }}#}
+																																																																										</div>
+																																																																									</div>
+																																																																								</form>-->
+{% endblock %}

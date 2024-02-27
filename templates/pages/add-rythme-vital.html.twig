@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+	<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+{% endblock %}
+
+{% block title %}Waou - Rythme
+	{{ type }}
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_rythme, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>Créer un Besoin
+					{{ type }}</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_rythme.titre) }}
+				{{ form_widget(form_rythme.titre) }}
+				{{ form_errors(form_rythme.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_rythme.duree_besoin, "Temps de besoin") }}
+				{{ form_widget(form_rythme.duree_besoin) }}
+				{{ form_errors(form_rythme.duree_besoin) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">Créer</button>
+		</div>
+	</div>
+	{{ form_end(form_rythme) }}
+{% endblock %}

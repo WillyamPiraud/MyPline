@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_ajouter_finance_loisir' ? 'Ajouter' : 'Modifier') }}
+	une action
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_finance_loisir) }}
+	{#{{ form_start(form_obligation_familiale) }}#}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				{% if app.request.get('_route') == 'app_ajouter_finance_loisir' %}
+					<h1>Ajouter</h1>
+				{% else %}
+					<h1>Modifier le coût ou le titre du loisir</h1>
+				{% endif %}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_finance_loisir.titre) }}
+				{{ form_widget(form_finance_loisir.titre) }}
+				{{ form_errors(form_finance_loisir.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_finance_loisir.montant) }}
+				{{ form_widget(form_finance_loisir.montant) }}
+				{{ form_errors(form_finance_loisir.montant) }}
+			</div>
+			<button type="submit" onclick="submitForms()" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_ajouter_finance_loisir' ? 'Créer' : 'Modifier') }}</button>
+			{{ form_end(form_finance_loisir) }}
+		</div>
+	</div>
+	{#{{ form_end(form_obligation_familiale) }}#}
+	<script src="{{ asset('js/autoInput.js') }}"></script>
+{% endblock %}

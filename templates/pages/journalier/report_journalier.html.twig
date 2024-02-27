@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_lst_calendrier_choses_a_faire_add' ? 'Ajouter' : 'Modifier') }}
+	une Choses A Faire
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_report, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>Reporter une tâche</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_report.titre) }}
+				{{ form_widget(form_report.titre) }}
+				{{ form_errors(form_report.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_report.date_journalier) }}
+				{{ form_widget(form_report.date_journalier) }}
+				{{ form_errors(form_report.date_journalier) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_report.temps_task) }}
+				{{ form_widget(form_report.temps_task) }}
+				{{ form_errors(form_report.temps_task) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">Reporter</button>
+		</div>
+	</div>
+	{{ form_end(form_report) }}
+{% endblock %}

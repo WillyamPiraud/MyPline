@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Mes Objectifs & Projets
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body element-to-scroll">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 2rem; width: 100%;">La recherche du bonheur est une quête universelle.<br>Pour une vie heureuse, je dois avoir :<br>
+					1.Une bonne santé<br>2.Une activité régulière<br>3.Une bonne situation financière<br>4.Des solides relations sociales<br>Dans ce menu, j'indique mes objectifs personnels sur chacune de ces 4 conditions.</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectifs_sante', {'secteur' : 'Sante'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Objectif SANTÉ
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							J’indique ici quels sont mes objectifs personnels. Ils doivent être clairs, précis et mesurables. Ce peut être des habitudes à prendre ou à stopper.  Ex : «Faire du sport» = NON, «Courir 10 km par semaine» = OUI. «Adopter une alimentation équilibrée» = NON, «Manger un fruit chaque jour» = OUI)
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="position: relative; border-radius: 0;">
+						<p class="title-statistique">Nombre d'objectifs<br>
+							<span style="font-size: 0.8rem">(en cours)</span>
+						</p>
+						<h3 style="position: relative; border-radius: 0;">{{ countSante }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif', {'secteur' : 'Sante'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_sante', {'secteur' : 'Sante'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_activity') }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Objectif ACTIVITÉ<br><span style="font-size: 1rem;">(Travail, Formation, Loisirs)</span>
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							J’indique ici quels sont mes objectifs personnels. Ils doivent être clairs, précis et mesurables.  Ex : «Obtenir un avancement professionnel» = NON, «Devenir responsable d’agence d’ici 2 ans»= OUI.  «Rompre ma solitude» = NON, «M’inscrire au club de danse et participer chaque semaine aux cours» = OUI)
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countActivite }}</h3>
+					</a>
+					<a href="{{ path('app_objectifs_activity') }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_activity') }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_form_objectif', {'secteur' : 'Sociabilite'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Objectif SOCIABILITÉ
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							J’indique ici quels sont mes objectifs personnels. Ils doivent être clairs, précis et mesurables.  Ex : «Voir plus souvent mes amis» = NON, «Inviter chaque mois un couple  d’amis pour assister à un repas à la maison»= OUI. «Partager plus de temps avec ma femme» = NON, «Aller faire du shopping avec ma femme un samedi par mois» = OUI)
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countSociabilite }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif', {'secteur' : 'Sociabilite'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_mes_objectifs_visualiser', {'secteur' : 'Sociabilite'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectif_finance') }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Objectif FINANCES
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							J’indique ici quels sont mes objectifs personnels. Ils doivent être clairs, précis et mesurables.  Ex : «Mieux gérer mes comptes» = NON, «Budgéter le montant prévu de dépenses par poste et Pointer chaque semaine mes comptes pour suivre mes budgets» = OUI. «Économiser»=NON – «Placer chaque mois 100€ pendant 10 mois pour me payer des vacances en juillet prochain» = OUI)
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countFinance }}</h3>
+					</a>
+					<a href="{{ path('app_objectif_finance') }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectif_finance') }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

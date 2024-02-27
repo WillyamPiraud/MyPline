@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_mes_loisirs' ? 'Ajouter' : 'Modifier') }}
+	un loisir
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_mes_loisirs, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_mes_loisirs' ? 'Ajouter' : 'Modifier') }}
+					un loisir</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.objet) }}
+				{{ form_widget(form_mes_loisirs.objet) }}
+				{{ form_errors(form_mes_loisirs.objet) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.lundi) }}
+				{{ form_widget(form_mes_loisirs.lundi) }}
+				{{ form_errors(form_mes_loisirs.lundi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.mardi) }}
+				{{ form_widget(form_mes_loisirs.mardi) }}
+				{{ form_errors(form_mes_loisirs.mardi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.mercredi) }}
+				{{ form_widget(form_mes_loisirs.mercredi) }}
+				{{ form_errors(form_mes_loisirs.mercredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.jeudi) }}
+				{{ form_widget(form_mes_loisirs.jeudi) }}
+				{{ form_errors(form_mes_loisirs.jeudi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.vendredi) }}
+				{{ form_widget(form_mes_loisirs.vendredi) }}
+				{{ form_errors(form_mes_loisirs.vendredi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.samedi) }}
+				{{ form_widget(form_mes_loisirs.samedi) }}
+				{{ form_errors(form_mes_loisirs.samedi) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_mes_loisirs.dimanche) }}
+				{{ form_widget(form_mes_loisirs.dimanche) }}
+				{{ form_errors(form_mes_loisirs.dimanche) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_rythme_vital_ajouter_mes_loisirs' ? 'Créer' : 'Modifier') }}</button>
+		</div>
+	</div>
+	{{ form_end(form_mes_loisirs) }}
+{% endblock %}

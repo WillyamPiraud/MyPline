@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Objectif Finances - Mes Loisirs
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier" style="margin-top: 200px;">
+		<div class="container-list row">
+			<div class="container-texte-exemple">
+				<h3>{{ textIntro }}</h3>
+			</div>
+			<div class="container-cards">
+				{% for entry in lstFinanceLoisir %}
+					<div class="card">
+						<div class="image-title">
+							{% if entry.titre == "Dépenses de logements" %}
+								<a href="{{ path('app_finance_loisir', {'type' : 'depense_logement'}) }}">
+									<h1>{{ entry.titre }}</h1>
+								</a>
+							{% elseif entry.titre == "Dépenses de Transport" %}
+								<a href="{{ path('app_finance_loisir', {'type' : 'depense_transport'}) }}">
+									<h1>{{ entry.titre }}</h1>
+								</a>
+							{% elseif entry.titre == "Dépenses d'éducation (Mes enfants)" %}
+								<a href="{{ path('app_finance_loisir', {'type' : 'depense_education'}) }}">
+									<h1>{{ entry.titre }}</h1>
+								</a>
+							{% elseif entry.titre == "Dépenses de communication, échanges (Téléphone, internet)" %}
+								<a href="{{ path('app_finance_loisir', {'type' : 'depense_communication'}) }}">
+									<h1>{{ entry.titre }}</h1>
+								</a>
+							{% else %}
+								<a href="#">
+									<h1>{{ entry.titre }}</h1>
+								</a>
+							{% endif %}
+						</div>
+						<div class="container-actions" style="justify-content: center;">
+							<div class="statistique-temps">
+								{% set pourcentage = (entry.montant / revenus) * 100 %}
+								{% set pourcentage_arrondi = ((pourcentage * 2) | round) / 2 %}
+								<div class="show-montant-euro">
+									<h3>Montant cible /mois :</h3>
+									<h3 id="chiffre_montant">
+										<a href="{{ path('app_modifier_finance_loisir', {'id': entry.id, 'type': entry.type}) }}">{{ entry.montant }}€
+											<span style="font-size: 0.8rem;">({{ pourcentage_arrondi }}% du revenu)<span></a>
+											</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</section>
+			{% endblock %}

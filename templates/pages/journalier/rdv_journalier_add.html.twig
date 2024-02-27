@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Ajouter un Rendez-Vous
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_journalier_rdv, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>Modifier une tâche</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_journalier_rdv.titre) }}
+				{{ form_widget(form_journalier_rdv.titre) }}
+				{{ form_errors(form_journalier_rdv.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_journalier_rdv.temps_task) }}
+				{{ form_widget(form_journalier_rdv.temps_task) }}
+				{{ form_errors(form_journalier_rdv.temps_task) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_journalier_rdv.telephone) }}
+				{{ form_widget(form_journalier_rdv.telephone) }}
+				{{ form_errors(form_journalier_rdv.telephone) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_journalier_rdv.lieu_rdv) }}
+				{{ form_widget(form_journalier_rdv.lieu_rdv) }}
+				{{ form_errors(form_journalier_rdv.lieu_rdv) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_journalier_rdv.horraire) }}
+				{{ form_widget(form_journalier_rdv.horraire) }}
+				{{ form_errors(form_journalier_rdv.horraire) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">Créer</button>
+		</div>
+	</div>
+	{{ form_end(form_journalier_rdv) }}
+{% endblock %}

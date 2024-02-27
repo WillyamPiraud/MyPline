@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_routine_travail_add' ? 'Ajouter' : 'Modifier') }}
+	une routine de travail
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_routine) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				{% if app.request.get('_route') == 'app_routine_travail_add' %}
+					<h1>Ajouter une routine</h1>
+				{% else %}
+					<h1>Modifier une routine</h1>
+				{% endif %}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_routine.intitule)}}
+				{{ form_widget(form_routine.intitule)}}
+				{{ form_errors(form_routine.intitule)}}
+			</div>
+			<div class="col-form">
+				{{ form_row(form_routine.temps_prevue)}}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_routine.frequence) }}
+				{{ form_widget(form_routine.frequence) }}
+				{{ form_errors(form_routine.frequence) }}
+			</div>
+			<div class="col-form">
+				{{ form_row(form_routine.nombre_action) }}
+			</div>
+			<div class="col-form">
+				{{ form_row(form_routine.premier_jour)}}
+			</div>
+			<div class="col-form">
+				{{ form_row(form_routine.lieu)}}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_routine_travail_add' ? 'Créer' : 'Modifier') }}</button>
+			{{ form_end(form_routine) }}
+		</div>
+	</div>
+	{#{{ form_end(form_obligation_familiale) }}#}
+	<script src="{{ asset('js/autoInput.js') }}"></script>
+{% endblock %}

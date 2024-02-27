@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Détails de la liste
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	<section class="element-to-scroll" style="width: 100%; display: flex; flex-direction: row; justify-content: center; align-items: center">
+		<div class="container-principal-form">
+			<div class="col-8 mx-auto container-intro">
+				<div class="col-form" style="width: 100%;">
+					<h1 style="font-size: 5rem; text-decoration: underline;">{{ todo.titre }}</h1>
+				</div>
+				{#<div class="col-form" style="width: 100%;">
+																																																																													<h1>{{ todo.titre }}</h1>
+																																																																												</div>#}
+				<div class="col-form" style="width: 100%;">
+					<h1>Actions</h1>
+					<form style="width: 100%" method="post" action="{{ path('create_task', { 'id_todolist': id_todolist }) }}">
+						<input style="width:70%; font-size: 2rem" name="titre" type="text" placeholder="Nom de la tâche...">
+						<input style="width:70%; font-size: 2rem" name="remarque" type="text" placeholder="Remarque">
+						<button style="font-size: 2rem; width: 15%; height: auto;" type="submit"><img style="width: 70%" src="{{ asset('img/plus-blanc.png') }}"></button>
+					</form>
+				</div>
+				{% for task in tasks %}
+					<div class="col-form object_todo" style="width: 100%; flex-direction: row;">
+						<a href="{{ path('app_liste_document_liste_set_statut', {'id': task.id, 'id_todolist': id_todolist }) }}" class="actions_todolist">
+							{% if task.statut == 1 %}
+								<img src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+							{% endif %}
+							<h2>{{ task.titre }}</h2>
+							<h3>{{ task.remarque }}</h3>
+						</a>
+						<a href="{{ path('app_liste_document_liste_delete_task', {'id': task.id, 'id_todolist': id_todolist }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche ?')" class="button-supprimer">
+							<img style="width: 100%" src="{{ asset('img/icon-croix.png') }}" alt="icone croix">
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endblock %}

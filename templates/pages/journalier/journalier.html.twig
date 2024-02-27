@@ -1,0 +1,699 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Mon Journalier
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('journalier') }}
+{% endblock %}
+{% block body %}
+	<section class="section-journalier">
+		<div class="container-text-principal">
+			<h1>Ma liste des tâches à réaliser le jour
+				<br>je la check au fur et à mesure des réalisations</h1>
+		</div>
+		<div class="container-time">
+			<div class="container-image">
+				<img src="{{ asset('img/picto-sablier.png') }}">
+			</div>
+			<div class="container-time">
+				<div class="container-title-time">
+					<h2>Mon temps engagé</h2>
+					<h2>{{ totalTempsHeures }}</h2>
+				</div>
+				<div class="container-title-time">
+					<h2>Reste Disponible</h2>
+					<h2>{{ totalTempsDisponible }}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="container-tasks">
+			{% for entry in journalier %}
+				<div class="tasks">
+					{% if entry.statut == 1 %}
+						<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+							<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+						</div>
+					{% endif %}
+					{% if app.request.get('_route') == 'app_journalier' %}
+						<a href="{{ path('app_journalier_set_statut', {'id': entry.id}) }}" class="container-title">
+							<h3>{{ entry.titre }}</h3>
+							<h3>{{ entry.tempsTask|date("H:i") }}</h3>
+						</a>
+					{% else %}
+						<a href="{{ path('app_journalier_date_set_statut', {'id': entry.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+							<h3>{{ entry.titre }}</h3>
+							<h3>{{ entry.tempsTask|date("H:i") }}</h3>
+						</a>
+					{% endif %}
+					<div class="container-actions">
+						{% if entry.titre == 'Petites Choses à faire du Jour' or entry.titre == 'Obligations familiales' or entry.titre == 'Manger (Tps de preparation Repas inclus)' %}
+							{% if entry.titre == 'Petites Choses à faire du Jour' %}
+								<a onclick="toggleDisplay('choseApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == 'Obligations familiales' %}
+								<a onclick="toggleDisplay('obligationApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == 'Manger (Tps de preparation Repas inclus)' %}
+								<a onclick="toggleDisplay('repasApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == 'Obligations familiales' %}
+								<a onclick="toggleDisplay('obligationApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == "Plan d'Actions Objectifs" %}
+								<a onclick="toggleDisplay('ObjectifApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre != 'Sommeil' and entry.titre != 'Manger (Tps de preparation Repas inclus)' and entry.titre != "Se laver / s'habiller et autres besoins quotidiens de vie" and entry.titre != "Imprévus du jour" and entry.titre != 'Mes Loisirs' and entry.titre != "Plan d'Actions Objectifs" %}
+								<a onclick="toggleDisplay('{{ entry.id }}Apparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+								{% else %}
+							{% endif %}
+						{% else %}
+							{% if entry.titre == 'Obligations familiales' %}
+								<a onclick="toggleDisplay('obligationApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == 'Rendez-Vous' %}
+								<a onclick="toggleDisplay('RDVApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre != 'Sommeil' and entry.titre != 'Manger (Tps de preparation Repas inclus)' and entry.titre != "Se laver / s'habiller et autres besoins quotidiens de vie" and entry.titre != "Imprévus du jour" and entry.titre != 'Mes Loisirs' and entry.titre != 'Mes Liens Sociaux' and entry.titre != "Plan d'Actions Objectifs" %}
+								<a onclick="toggleDisplay('{{ entry.id }}Apparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == 'Mes Loisirs' %}
+								<a onclick="toggleDisplay('loisirApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == 'Mes Liens Sociaux' %}
+								<a onclick="toggleDisplay('lienApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == 'Rendez-Vous' %}
+								<a onclick="toggleDisplay('RDVApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+							{% elseif entry.titre == "Plan d'Actions Objectifs" %}
+								<a onclick="toggleDisplay('ObjectifApparaitre')" class="container-relative">
+									<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+									<div class="info-bubble">Zoom</div>
+								</a>
+								{% else %}
+							{% endif %}
+							{% if app.request.get('_route') == 'app_journalier_date' %}
+								<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': entry.id, 'date': currentDate|date('Y-m-d') }) }}">
+									<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+									<div class="info-bubble">Modifier</div>
+								</a>
+							{% elseif entry.titre == 'Imprévus du jour' %}
+								<a class="container-relative" href="{{ path('app_lst_calendrier_choses_a_faire') }}">
+									<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+									<div class="info-bubble">Modifier</div>
+								</a>
+							{% elseif entry.titre == 'Rendez-Vous' %}
+							{% elseif entry.titre == 'Mes Loisirs' %}
+							{% elseif entry.titre == 'Mes Liens Sociaux' %}
+							{% else %}
+								<a class="container-relative" href="{{ path('app_journalier_modifier_tache_jour', {'id': entry.id}) }}">
+									<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+									<div class="info-bubble">Modifier</div>
+								</a>
+							{% endif %}
+
+							{% if entry.titre == 'Sommeil' or entry.titre == 'Manger (Tps de preparation Repas inclus)' or entry.titre == "Se laver / s'habiller et autres besoins quotidiens de vie" or entry.titre == "Imprévus du jour" %}
+								{% else %}
+									{% if app.request.get('_route') != 'app_journalier_date' %}
+										<a class="container-relative" href="{{ path('app_journalier_report', {'id': entry.id}) }}">
+											<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+											<div class="info-bubble">Reporter</div>
+										</a>
+									{% else %}
+										<a class="container-relative" href="{{ path('app_journalier_date_report', {'id': entry.id, 'date': currentDate|date('Y-m-d') }) }}">
+											<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+											<div class="info-bubble">Reporter</div>
+										</a>
+										{% endif%}
+									{% endif %}
+									{% if entry.titre == 'Petites Choses à faire du Jour' %}
+										<a onclick="toggleDisplay('choseApparaitre')" class="container-relative">
+											<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+											<div class="info-bubble">Zoom</div>
+										</a>
+									{% elseif entry.titre == 'Manger (Tps de preparation Repas inclus)' %}
+										<a onclick="toggleDisplay('repasApparaitre')" class="container-relative">
+											<img src="{{ asset('img/picto-zoom.png') }}" alt="Zoom">
+											<div class="info-bubble">Zoom</div>
+										</a>
+										{% else %}
+									{% endif %}
+								{#{% if app.request.get('_route') == 'app_journalier_date' %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': entry.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="info-bubble">Supprimer</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						{% else %}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<a class="container-relative" href="{{ path('app_journalier_delete', {'id': entry.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="info-bubble">Supprimer</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						{% endif %}#}
+							{% endif %}
+						</div>
+					</div>
+					{% if entry.titre == 'Petites Choses à faire du Jour' %}
+						<div class="zoom-journalier" id="choseApparaitre">
+							<h2 class="titre-zoom">Détails des petites choses à faire :</h2>
+							{% for chose in ChosesAFaire %}
+								<div class="tasks">
+									{% if chose.statut == 1 %}
+										<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+											<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+										</div>
+									{% endif %}
+									{% if app.request.get('_route') == 'app_journalier' %}
+										<a href="{{ path('app_journalier_set_statut', {'id': chose.id}) }}" class="container-title">
+											<h3>{{ chose.titre }}</h3>
+											<h3>{{ chose.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% else %}
+										<a href="{{ path('app_journalier_date_set_statut', {'id': chose.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+											<h3>{{ chose.titre }}</h3>
+											<h3>{{ chose.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% endif %}
+									<div class="container-actions">
+										<a class="container-relative" href="{{ path('app_lst_calendrier_choses_a_faire') }}">
+											<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+											<div class="info-bubble">Modifier</div>
+										</a>
+										<a class="container-relative" href="{{ path('app_lst_calendrier_choses_a_faire') }}">
+											<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+											<div class="info-bubble">Reporter</div>
+										</a>
+										<a class="container-relative">
+											<img src="{{ asset('img/picto-liste.png') }}" alt="Liste associée">
+											<div class="info-bubble">Liste associée</div>
+										</a>
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': chose.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_delete', {'id': chose.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+					{% if entry.titre == 'Manger (Tps de preparation Repas inclus)' %}
+						<div class="zoom-journalier" id="repasApparaitre">
+							<h2 class="titre-zoom">Détails des repas :</h2>
+							{% for repas in diffRepas %}
+								<div class="tasks">
+									{% if repas.statut == 1 %}
+										<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+											<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+										</div>
+									{% endif %}
+									{% if app.request.get('_route') == 'app_journalier' %}
+										<a href="{{ path('app_journalier_set_statut', {'id': repas.id}) }}" class="container-title">
+											<h3>{{ repas.titre }}</h3>
+											<h3>{{ repas.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% else %}
+										<a href="{{ path('app_journalier_date_set_statut', {'id': repas.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+											<h3>{{ repas.titre }}</h3>
+											<h3>{{ repas.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% endif %}
+									<div class="container-actions">
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': repas.id, 'date': currentDate|date('Y-m-d') }) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_jour', {'id': repas.id}) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% endif %}
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': repas.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_delete', {'id': repas.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+					{% if entry.titre == 'Obligations familiales' %}
+						<div class="zoom-journalier" id="obligationApparaitre">
+							<h2 class="titre-zoom">Détails des obligations familiales :</h2>
+							{% for obligation in diffObli %}
+								<div class="tasks">
+									{% if obligation.statut == 1 %}
+										<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+											<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+										</div>
+									{% endif %}
+									{% if app.request.get('_route') == 'app_journalier' %}
+										<a href="{{ path('app_journalier_set_statut', {'id': obligation.id}) }}" class="container-title">
+											<h3>{{ obligation.titre }}</h3>
+											<h3>{{ obligation.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% else %}
+										<a href="{{ path('app_journalier_date_set_statut', {'id': obligation.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+											<h3>{{ obligation.titre }}</h3>
+											<h3>{{ obligation.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% endif %}
+									<div class="container-actions">
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': obligation.id, 'date': currentDate|date('Y-m-d') }) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_jour', {'id': obligation.id}) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% endif %}
+										<a class="container-relative">
+											<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+											<div class="info-bubble">Reporter</div>
+										</a>
+										<a class="container-relative">
+											<img src="{{ asset('img/picto-liste.png') }}" alt="Liste associée">
+											<div class="info-bubble">Liste associée</div>
+										</a>
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': obligation.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_delete', {'id': obligation.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+
+					{# Listes les différentes tâches de chaques metiers #}
+					{% if diffActiJournalier is defined %}
+						{% set activitesGroupedByMetier = {} %}
+
+						{% for activite in diffActiJournalier %}
+							{% if entry.id == activite.idPrecis %}
+								{% set idApparaitre = activite.idPrecis ~ 'Apparaitre' %}
+								{% set activitesGroup = activitesGroupedByMetier[idApparaitre] ?? [] %}
+								{% set activitesGroup = activitesGroup|merge([activite]) %}
+								{% set activitesGroupedByMetier = activitesGroupedByMetier|merge({ (idApparaitre): activitesGroup }) %}
+							{% endif %}
+						{% endfor %}
+
+
+						{% for metierId, activitesGroup in activitesGroupedByMetier %}
+							<div class="zoom-journalier" id="{{ metierId }}">
+								<h2 class="titre-zoom">Détails :</h2>
+								{% for activite in activitesGroup %}
+									<div class="tasks">
+										{% if activite.statut == 1 %}
+											<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+												<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+											</div>
+										{% endif %}
+										{% if app.request.get('_route') == 'app_journalier' %}
+											<a href="{{ path('app_journalier_set_statut', {'id': activite.id}) }}" class="container-title">
+												<h3>{{ activite.titre }}</h3>
+												<h3>{{ activite.tempsTask|date("H:i") }}</h3>
+											</a>
+										{% else %}
+											<a href="{{ path('app_journalier_date_set_statut', {'id': activite.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+												<h3>{{ activite.titre }}</h3>
+												<h3>{{ activite.tempsTask|date("H:i") }}</h3>
+											</a>
+										{% endif %}
+										{% if activite.telephone != null %}
+											<div class="container-actions">
+												{% if app.request.get('_route') == 'app_journalier_date' %}
+													<a class="container-relative" href="{{ 'https://www.google.com/maps/search/?api=1&query=' ~ activite.lieuRdv }}" target="_blank">
+														<img style="width: 70%" src="{{ asset('img/picto-localisation.png') }}" alt="Rendez-vous à prendre">
+														<div class="info-bubble">lieu du RDV</div>
+													</a>
+												{% else %}
+													<a class="container-relative" href="{{ 'https://www.google.com/maps/search/?api=1&query=' ~ activite.lieuRdv }}" target="_blank">
+														<img style="width: 70%" src="{{ asset('img/picto-localisation.png') }}" alt="Rendez-vous à prendre">
+														<div class="info-bubble">lieu du RDV</div>
+													</a>
+												{% endif %}
+												<a class="container-relative" href="tel:{{ activite.telephone }}">
+													<img style="width: 70%" src="{{ asset('img/picto-appel-a-donner.png') }}" alt="Decaler la tâche">
+													<div class="info-bubble">Appel à donner</div>
+												</a>
+												<a class="container-relative">
+													<img style="width: 70%;" src="{{ asset('img/icon-horloge.png') }}" alt="Liste associée">
+													<div class="info-bubble">{{ activite.horraire|date('H:i') }}</div>
+												</a>
+											</div>
+										{% elseif activite.titre != "Reste du temps"%}
+											<div class="container-actions">
+												{% if app.request.get('_route') == 'app_journalier_date' %}
+													<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': activite.id, 'date': currentDate|date('Y-m-d') }) }}">
+														<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+														<div class="info-bubble">Modifier</div>
+													</a>
+												{% else %}
+													<a class="container-relative" href="{{ path('app_journalier_modifier_tache_jour', {'id': activite.id}) }}">
+														<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+														<div class="info-bubble">Modifier</div>
+													</a>
+												{% endif %}
+												<a class="container-relative">
+													<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+													<div class="info-bubble">Reporter</div>
+												</a>
+												{% if app.request.get('_route') == 'app_journalier_date' %}
+													<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': activite.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+														<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+														<div class="info-bubble">Supprimer</div>
+													</a>
+												{% else %}
+													<a class="container-relative" href="{{ path('app_journalier_delete', {'id': activite.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+														<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+														<div class="info-bubble">Supprimer</div>
+													</a>
+												{% endif %}
+											</div>
+										{% else %}
+											<div class="container-actions">
+												{% if app.request.get('_route') == 'app_journalier_date' %}
+													<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': activite.id, 'date': currentDate|date('Y-m-d') }) }}">
+														<img src="{{ asset('img/picto-rdv-a-prendre.png') }}" alt="Rendez-vous à prendre">
+														<div class="info-bubble">Ajouter un RDV</div>
+													</a>
+												{% else %}
+													<a class="container-relative" href="{{ path('app_journalier_rdv_add', {'id_type': activite.idPrecis}) }}">
+														<img src="{{ asset('img/picto-rdv-a-prendre.png') }}" alt="Rendez-vous à prendre">
+														<div class="info-bubble">Ajouter un RDV</div>
+													</a>
+												{% endif %}
+												<a class="container-relative" href="{{ path('app_lst_calendrier_choses_a_faire') }}">
+													<img style="width: 70%" src="{{ asset('img/picto-choses-a-faire-todo.png') }}" alt="Decaler la tâche">
+													<div class="info-bubble">Choses à faire</div>
+												</a>
+												<a class="container-relative">
+													<img src="{{ asset('img/picto-des-objectif.png') }}" alt="Liste associée">
+													<div class="info-bubble">Objectifs</div>
+												</a>
+											</div>
+										{% endif %}
+									</div>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					{% endif %}
+					{% if entry.titre == 'Rendez-Vous' %}
+						<div class="zoom-journalier" id="RDVApparaitre">
+							<h2 class="titre-zoom">Détails des rendez-vous :</h2>
+							{% for rdv in listeRDV %}
+								<div class="tasks">
+									{% if rdv.statut == 1 %}
+										<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+											<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+										</div>
+									{% endif %}
+									{% if app.request.get('_route') == 'app_journalier' %}
+										<a href="{{ path('app_journalier_set_statut', {'id': rdv.id}) }}" class="container-title">
+											<h3>{{ rdv.titre }}</h3>
+											<h3>{{ rdv.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% else %}
+										<a href="{{ path('app_journalier_date_set_statut', {'id': rdv.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+											<h3>{{ rdv.titre }}</h3>
+											<h3>{{ rdv.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% endif %}
+									<div class="container-actions">
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_lst_rdv', {'id': rdv.id, 'date': currentDate|date('Y-m-d') }) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_lst_rdv', {'id': rdv.id}) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% endif %}
+										<a class="container-relative">
+											<img style="width: 70%;" src="{{ asset('img/icon-horloge.png') }}" alt="Liste associée">
+											<div class="info-bubble">{{ rdv.horraire|date('H:i') }}</div>
+										</a>
+										<a class="container-relative" href="tel:{{ rdv.telephone }}">
+											<img style="width: 70%" src="{{ asset('img/picto-rdv-a-prendre.png') }}" alt="Decaler la tâche">
+											<div class="info-bubble">Coordonnées</div>
+										</a>
+										<a class="container-relative" href="{{ 'https://www.google.com/maps/search/?api=1&query=' ~ rdv.lieuRdv }}" target="_blank">
+											<img style="width: 70%" src="{{ asset('img/picto-localisation.png') }}" alt="Rendez-vous à prendre">
+											<div class="info-bubble">lieu du RDV</div>
+										</a>
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': rdv.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_delete', {'id': rdv.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+					{% if entry.titre == 'Mes Loisirs' %}
+						<div class="zoom-journalier" id="loisirApparaitre">
+							<h2 class="titre-zoom">Détails des loisirs :</h2>
+							{% for loisir in listeLoisirs %}
+								<div class="tasks">
+									{% if loisir.statut == 1 %}
+										<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+											<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+										</div>
+									{% endif %}
+									{% if app.request.get('_route') == 'app_journalier' %}
+										<a href="{{ path('app_journalier_set_statut', {'id': loisir.id}) }}" class="container-title">
+											<h3>{{ loisir.titre }}</h3>
+											<h3>{{ loisir.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% else %}
+										<a href="{{ path('app_journalier_date_set_statut', {'id': loisir.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+											<h3>{{ loisir.titre }}</h3>
+											<h3>{{ loisir.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% endif %}
+									<div class="container-actions">
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': loisir.id, 'date': currentDate|date('Y-m-d') }) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_jour', {'id': loisir.id}) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% endif %}
+										<a class="container-relative">
+											<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+											<div class="info-bubble">Reporter</div>
+										</a>
+										<a class="container-relative">
+											<img src="{{ asset('img/picto-liste.png') }}" alt="Liste associée">
+											<div class="info-bubble">Liste associée</div>
+										</a>
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': loisir.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_delete', {'id': loisir.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+					{% if entry.titre == 'Mes Liens Sociaux' %}
+						<div class="zoom-journalier" id="lienApparaitre">
+							<h2 class="titre-zoom">Détails des liens :</h2>
+							{% for lien in listeLiens %}
+								<div class="tasks">
+									{% if lien.statut == 1 %}
+										<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+											<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+										</div>
+									{% endif %}
+									{% if app.request.get('_route') == 'app_journalier' %}
+										<a href="{{ path('app_journalier_set_statut', {'id': lien.id}) }}" class="container-title">
+											<h3>{{ lien.titre }}</h3>
+											<h3>{{ lien.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% else %}
+										<a href="{{ path('app_journalier_date_set_statut', {'id': lien.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+											<h3>{{ lien.titre }}</h3>
+											<h3>{{ lien.tempsTask|date("H:i") }}</h3>
+										</a>
+									{% endif %}
+									<div class="container-actions">
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': lien.id, 'date': currentDate|date('Y-m-d') }) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_modifier_tache_jour', {'id': lien.id}) }}">
+												<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+												<div class="info-bubble">Modifier</div>
+											</a>
+										{% endif %}
+										<a class="container-relative">
+											<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+											<div class="info-bubble">Reporter</div>
+										</a>
+										<a class="container-relative">
+											<img src="{{ asset('img/picto-liste.png') }}" alt="Liste associée">
+											<div class="info-bubble">Liste associée</div>
+										</a>
+										{% if app.request.get('_route') == 'app_journalier_date' %}
+											<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': lien.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% else %}
+											<a class="container-relative" href="{{ path('app_journalier_delete', {'id': lien.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+												<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+												<div class="info-bubble">Supprimer</div>
+											</a>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+					{% if entry.titre == 'Plan d\'Actions Objectifs' %}
+						<div class="zoom-journalier" id="ObjectifApparaitre">
+							<h2 class="titre-zoom">Plans d'actions :</h2>
+							{% for action in listePDA %}
+						<div class="tasks">
+							{% if action.statut == 1 %}
+								<div style="width: 10%; margin-right: 1%; height: 100%; display: flex; align-items: center; justify-content: center;">
+									<img style="width: 75%;" src="{{ asset('img/icon-valide.png') }}" alt="Validé">
+								</div>
+							{% endif %}
+							{% if app.request.get('_route') == 'app_journalier' %}
+								<a href="{{ path('app_journalier_set_statut', {'id': action.id}) }}" class="container-title">
+									<h3>{{ action.titre }}</h3>
+									<h3>{{ action.tempsTask|date("H:i") }}</h3>
+								</a>
+							{% else %}
+								<a href="{{ path('app_journalier_date_set_statut', {'id': action.id, 'date': currentDate|date('Y-m-d') }) }}" class="container-title">
+									<h3>{{ action.titre }}</h3>
+									<h3>{{ action.tempsTask|date("H:i") }}</h3>
+								</a>
+							{% endif %}
+							<div class="container-actions">
+								{% if app.request.get('_route') == 'app_journalier_date' %}
+									<a class="container-relative" href="{{ path('app_journalier_modifier_tache_date', {'id': action.id, 'date': currentDate|date('Y-m-d') }) }}">
+										<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+										<div class="info-bubble">Modifier</div>
+									</a>
+								{% else %}
+									<a class="container-relative" href="{{ path('app_journalier_modifier_tache_jour', {'id': action.id}) }}">
+										<img src="{{ asset('img/icon-modifier.png') }}" alt="Modifier">
+										<div class="info-bubble">Modifier</div>
+									</a>
+								{% endif %}
+								<a class="container-relative">
+									<img style="width: 70%" src="{{ asset('img/picto-decaler.png') }}" alt="Decaler la tâche">
+									<div class="info-bubble">Reporter</div>
+								</a>
+								<a class="container-relative">
+									<img src="{{ asset('img/picto-liste.png') }}" alt="Liste associée">
+									<div class="info-bubble">Liste associée</div>
+								</a>
+								{% if app.request.get('_route') == 'app_journalier_date' %}
+									<a class="container-relative" href="{{ path('app_journalier_date_delete', {'id': action.id, 'date': currentDate|date('Y-m-d')}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+										<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+										<div class="info-bubble">Supprimer</div>
+									</a>
+								{% else %}
+									<a class="container-relative" href="{{ path('app_journalier_delete', {'id': action.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche du journalier ?')">
+										<img style="width: 90%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+										<div class="info-bubble">Supprimer</div>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+	<form id="dateForm">
+		<label for="selectedDate">Consulter une autre date :</label>
+		<input type="date" id="selectedDate" name="date">
+	</form>
+</section>
+
+<script>
+	document.getElementById('selectedDate').addEventListener('change', function () {
+var selectedDate = document.getElementById('selectedDate').value;
+var url = "{{ path('app_journalier_date', {'date': 'selectedDate'})|raw }}".replace('selectedDate', selectedDate);
+window.location.href = url;
+});
+</script>
+<script src="{{ asset('js/display.js') }}"></script>{% endblock %}

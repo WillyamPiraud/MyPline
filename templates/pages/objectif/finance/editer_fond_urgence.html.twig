@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_ajouter_fond_urgence' ? 'Ajouter' : 'Modifier') }}
+	une action
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_finance_fond) }}
+	{#{{ form_start(form_obligation_familiale) }}#}
+	<div class="row container-principal-form element-to-scroll">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form">
+				<label>Disposez-vous à ce jour d'une éparge disponible de réserve d'un montant minimum de
+					{{ totalRevenusEpargne }}€
+										?</label>
+				{{ form_widget(form_finance_fond.epargne_minimum) }}
+				{{ form_errors(form_finance_fond.epargne_minimum) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_finance_fond.montant_dispo) }}
+				{{ form_widget(form_finance_fond.montant_dispo) }}
+				{{ form_errors(form_finance_fond.montant_dispo) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_finance_fond.epargne_place) }}
+				{{ form_widget(form_finance_fond.epargne_place) }}
+				{{ form_errors(form_finance_fond.epargne_place) }}
+			</div>
+			<button type="submit" onclick="submitForms()" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_ajouter_fond_urgence' ? 'Créer' : 'Modifier') }}</button>
+			{{ form_end(form_finance_fond) }}
+		</div>
+	</div>
+	{#{{ form_end(form_obligation_familiale) }}#}
+	<script src="{{ asset('js/autoInput.js') }}"></script>
+{% endblock %}

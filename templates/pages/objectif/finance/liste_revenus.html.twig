@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Objectif Finances - Mes Loisirs
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_ajouter_mes_revenus') }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>Gérer mes finances personnelles est essentiel à mon bien être.<br>Cela minimise mon stress, me permet d'ateindre mes objectifs et de me construire mon avenir.<br>C'est essentiel à ma stabilité et à ma sécurité.<br>Dans cette page, je détermine mes budgets personnels cible.</h3>
+			</div>
+			<div class="container-cards">
+				{% for entry in lstFinanceRevenus %}
+					<div class="card">
+						<div class="image-title">
+							<a href="#">
+								<h1>{{ entry.titre }}</h1>
+							</a>
+						</div>
+						<div class="container-actions" style="justify-content: center;">
+							<div class="statistique-temps">
+								<div class="show-montant-euro">
+									<h3>Revenu net /mois :</h3>
+									<h3 id="chiffre_montant">
+										<a href="{{ path('app_modifier_mes_revenus', {'id': entry.id}) }}">{{ entry.revenu }}€</a>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="container-button-add">
+					<a class="button-add" href="{{ path('app_ajouter_mes_revenus') }}">Ajouter</a>
+				</div>
+			</div>
+		</section>
+	{% endblock %}

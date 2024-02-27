@@ -1,0 +1,328 @@
+{% extends 'base.html.twig' %}
+{% block head%}
+	<head>
+		<title>
+			{% block title %}Waou - Accueil
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('headapp') }}
+			{{ encore_entry_link_tags('home') }}
+		{% endblock %}
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+{% endblock %}
+{% block body %}
+	<!--
+			<nav class="nav-home" style="margin-top: 2%;">
+				<div class="row row-header-sup navigation-pages">
+					<div class="col-6 col-md-4 div-nav-logo"><img src={{ asset('img/logo-sans-bg.png') }} alt="Logo"></div>
+					<div class="col-md-8 div-nav-button">
+						<a href="{{ path('app_je_decouvre') }}" class="principal-supp-head-button">Je Découvre Waou</a>
+						<a href="#">Essai Gratuit</a>
+						<a href="#">Mes Vidéos Référence</a>
+					</div>
+				</div>
+			</nav>
+			-->
+
+	<nav class="nav-home-inf element-to-scroll">
+		<div class="row row-header-inf">
+			<div class="col-3 col-button-connexion">
+				{% if app.user %}
+					<a class="button-connexion" href="#">{{ app.user.prenom }}</a>
+				{% else %}
+					<a class="button-connexion" href="{{ path('app_login') }}">Connexion</a>
+				{% endif %}
+			</div>
+			{#<div class="col-4 display-hour-date">
+																																																																											<span style="text-transform: capitalize;" id="date">01/01/2023</span>
+																																																																											<span style="text-transform: capitalize;" id="heure">00:00:00</span>
+																																																																										</div>#}
+			<div class="col-9 liste-rappel">
+				<div class="rappel">
+					<a class="a-calendrier">
+						<div class="row-supp">
+							<h2>
+								<span style="text-transform: capitalize;" id="date">01/01/2023</span>
+								<span style="text-transform: capitalize;" id="heure">00:00:00</span>
+							</h2>
+						</div>
+					</a>
+					<a class="a-calendrier" href="{{ path('app_journalier') }}">
+						<div class="row-inf">
+							<h3>Mon Journalier</h3>
+						</div>
+					</a>
+				</div>
+				<div class="rappel">
+					<a class="a-calendrier">
+						<div class="row-supp">
+							<h2>{{ countInvalidEntriesRDV }}</h2>
+						</div>
+					</a>
+					<a class="a-calendrier" href="{{ path('app_lst_rdv') }}">
+						<div class="row-inf">
+							<h3>Rendez-vous
+								<br>à prendre</h3>
+						</div>
+					</a>
+				</div>
+				<div class="rappel">
+					<a class="a-calendrier">
+						<div class="row-supp">
+							<h2>{{ countInvalidEntriesChoses }}</h2>
+						</div>
+					</a>
+					<a class="a-calendrier" href="{{ path('app_lst_calendrier_choses_a_faire') }}">
+						<div class="row-inf">
+							<h3>Petites choses à faire</h3>
+						</div>
+					</a>
+				</div>
+				<div class="rappel">
+					<a class="a-calendrier">
+						<div class="row-supp">
+							<h2>{{ countInvalidTel }}</h2>
+						</div>
+					</a>
+					<a class="a-calendrier" href="{{ path('app_lst_calendrier_tel') }}">
+						<div class="row-inf">
+							<h3>Appels tel<br>
+								à donner</h3>
+						</div>
+					</a>
+				</div>
+				<div class="rappel">
+					<a class="a-calendrier">
+						<div class="row-supp">
+							<h2>{{ countInvalidEntriesEvent }}</h2>
+						</div>
+					</a>
+					<a href="{{ path('app_lst_calendrier_evenement') }}" class="a-calendrier">
+						<div class="row-inf">
+							<h3>Événements à souhaiter</h3>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<section class="nav-principal-body">
+	<div class="row button-principal-body">
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu responsive-top-border">
+				<img src="{{ asset('img/icon-agenda.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon responsive-top-border">
+				<a href="{{ path('app_rythme_vital') }}">Mes Routines</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu">
+				<img src="{{ asset('img/icon-post-it.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon">
+				<a href="{{ path('app_post_it_notes') }}">Mes Post-it
+					<br>&amp; Notes</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu">
+				<img src="{{ asset('img/icon-document.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon">
+				<a href="{{ path('app_liste_document') }}">Mes Listes
+					<br>&amp; Documents</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu">
+				<img src="{{ asset('img/icon-objectif.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon">
+				<a href="{{ path('app_mes_objectifs') }}">Mes Objectifs
+					<br>&amp; Projets</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu">
+				<img src="{{ asset('img/icon-plan-action.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon">
+				<a href="{{ path('app_liste_plan_action') }}">Mes Plans d'Actions</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu">
+				<img src="{{ asset('img/icon-video.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon">
+				<a href="#">Mes Vidéos
+					<br>&amp; Photos</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu">
+				<img src="{{ asset('img/icon-webbinar.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon">
+				<a href="#">Mes Partages
+					<br>&amp; Webbinar</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+		<div class="menu-principal-body">
+			<div class="col-2 img-menu">
+				<img src="{{ asset('img/icon-resultat.png') }}">
+			</div>
+			<div class="col-3 button-menu-icon">
+				<a href="#">Mes Résultats</a>
+			</div>
+			<div class="col-7 description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+	</div>
+</section>
+
+{#      
+<section class="nav-principal-body">
+	<div class="row row-cols-2">
+		<div class="col-5 button-principal-body">
+			<div class="menu-principal-body" style="border-top: 3px solid #112D4E;">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-agenda.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mon Agenda
+						<br>&amp; Rendez-vous</a>
+				</div>
+			</div>
+			<div class="menu-principal-body">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-post-it.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mes Post-it
+						<br>&amp; Notes</a>
+				</div>
+			</div>
+			<div class="menu-principal-body">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-document.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mes Listes
+						<br>&amp; Documents</a>
+				</div>
+			</div>
+			<div class="menu-principal-body">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-objectif.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mes Objectifs
+						<br>&amp; Projets</a>
+				</div>
+			</div>
+			<div class="menu-principal-body">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-plan-action.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mes Plans d'Actions</a>
+				</div>
+			</div>
+			<div class="menu-principal-body">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-video.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mes Vidéos
+						<br>&amp; Photos</a>
+				</div>
+			</div>
+			<div class="menu-principal-body">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-webbinar.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mes Partages
+						<br>&amp; Webbinar</a>
+				</div>
+			</div>
+			<div class="menu-principal-body">
+				<div class="col-4">
+					<img src="{{ asset('img/icon-resultat.png') }}">
+				</div>
+				<div class="col-8">
+					<a href="#">Mes Résultats</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-7 description-menu-button">
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+			<div class="description-menu-button-page">
+				<h2>TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST</h2>
+			</div>
+		</div>
+	</div>
+</section>
+#}
+<script type="text/javascript">
+	$(function () {
+$(window).on("scroll", function () {
+if ($(this).scrollTop() > 50) {
+$(".navigation-pages").addClass("scrolled");
+$(".element-to-scroll").addClass("element-scrolled");
+} else {
+$(".navigation-pages").removeClass("scrolled");
+$(".element-to-scroll").removeClass("element-scrolled");
+}
+});
+});
+</script>
+<script src="{{ asset('js/heure.js') }}"></script>{% endblock %}

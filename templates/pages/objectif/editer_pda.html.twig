@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_ajouter_pda' ? 'Ajouter' : 'Modifier') }}
+	une action
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_pda) }}
+	{#{{ form_start(form_obligation_familiale) }}#}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				{% if app.request.get('_route') == 'app_ajouter_pda' %}
+					<h1>Ajouter</h1>
+				{% else %}
+					Modifier
+				{% endif %}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_pda.titre) }}
+				{{ form_widget(form_pda.titre) }}
+				{{ form_errors(form_pda.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_pda.description) }}
+				{{ form_widget(form_pda.description) }}
+				{{ form_errors(form_pda.description) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_pda.temps_prevu) }}
+				{{ form_widget(form_pda.temps_prevu) }}
+				{{ form_errors(form_pda.temps_prevu) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_pda.date_realisation) }}
+				{{ form_widget(form_pda.date_realisation) }}
+				{{ form_errors(form_pda.date_realisation) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_pda.frequence) }}
+				{{ form_widget(form_pda.frequence) }}
+				{{ form_errors(form_pda.frequence) }}
+			</div>
+			<button type="submit" onclick="submitForms()" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_ajouter_pda' ? 'Créer' : 'Modifier') }}</button>
+			{{ form_end(form_pda) }}
+		</div>
+	</div>
+	{#{{ form_end(form_obligation_familiale) }}#}
+	<script src="{{ asset('js/autoInput.js') }}"></script>
+{% endblock %}

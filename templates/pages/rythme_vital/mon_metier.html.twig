@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste des métiers / études / formations
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_metier_formation_add', {'type': type}) }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>{{ textIntro }}</h3>
+			</div>
+			<div class="container-cards">
+				{% for entry in lstMetier %}
+					<div class="card">
+						<div class="image-title">
+							<a href="{{ path('app_activite_professionnel_temps_travail', {'type': type}) }}">
+								<h1>{{ entry.intitule }}
+									{{ entry.employeur }}</h1>
+							</a>
+						</div>
+						<div class="container-actions">
+							<div class="statistique-temps">
+								<p>Usage de mon temps cible
+									<span>(moyenne par jour)</span>
+								</p>
+								{% set totalSeconds = entry.lundi.getTimestamp() + entry.mardi.getTimestamp() + entry.mercredi.getTimestamp() + entry.jeudi.getTimestamp() + entry.vendredi.getTimestamp() + entry.samedi.getTimestamp() + entry.dimanche.getTimestamp() %}
+								{% set averageSecondsPerDay = totalSeconds / 7 %}
+								{% set averagePercentage = (averageSecondsPerDay / (24*3600)) * 100 %}
+								{% set roundedPercentage = (averagePercentage * 2) | round / 2 %}
+								{# arrondi au 0,5% le plus proche #}
+								{% set averageHoursPerDay = averageSecondsPerDay / 3600 %}
+								{% set hours = (averageHoursPerDay * 2) | round / 2 | round(0, 'floor') %}
+								{% set minutes = ((averageHoursPerDay * 60) % 60) | round %}
+								{% set formattedTime = '%02dh%02d'|format(hours, minutes) %}
+								<h2>{{ formattedTime }}</h2>
+								<h2>{{ roundedPercentage }}%</h2>
+							</div>
+							<div class="container-action">
+								<a class="delete-button" href="{{ path('app_metier_delete', {'id' : entry.id, 'type': type}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce metier ?')">
+									<img style="width: 100%" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+								</a>
+								<a href="{{ path('app_metier_formation_modify', {'id' : entry.id, 'type': entry.type}) }}">
+									<img style="width: 80%" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+								</a>
+								<a href="{{ path('app_activite_professionnel_temps_travail', {'type' : type, 'id': entry.id}) }}">
+									<img style="width: 100%" src="{{ asset('img/picto-liste.png') }}" alt="Liste des tâches">
+								</a>
+							</div>
+							<div class="statistique-temps">
+								<h2>33%</h2>
+								<h2>08:00</h2>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="container-button-add">
+					<a class="button-add" href="{{ path('app_metier_formation_add') }}">Ajouter</a>
+				</div>
+			</div>
+		</section>
+	{% endblock %}

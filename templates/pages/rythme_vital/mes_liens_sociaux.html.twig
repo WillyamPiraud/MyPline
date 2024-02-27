@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste des liens sociaux
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_rythme_vital_ajouter_mes_liens_sociaux') }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>Dans cette rubrique indiquez le temps que vous souhaitez consacrer aux membres de votre famille, à vos amis / proches et à vos activités sociales.<br>Exemples : “Aller au cinéma avec ma femme 1 fois par mois“, “Inviter des amis 1 fois par mois“, “Participer à la réunion du conseil municipal 1 fois par mois“</h3>
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr class="six_columns">
+						<th scope="col" class="intitule" style="width: 30%;">Objet</th>
+						<th scope="col">Lundi</th>
+						<th scope="col">Mardi</th>
+						<th scope="col">Mercredi</th>
+						<th scope="col">Jeudi</th>
+						<th scope="col">Vendredi</th>
+						<th scope="col">Samedi</th>
+						<th scope="col">Dimanche</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for entry in lstMesLiensSociaux %}
+						<tr class="six_columns">
+							<th scope="row">{{ entry.objet }}</th>
+							<td>{{ entry.lundi.format('H:i') }}</td>
+							<td>{{ entry.mardi.format('H:i') }}</td>
+							<td>{{ entry.mercredi.format('H:i') }}</td>
+							<td>{{ entry.jeudi.format('H:i') }}</td>
+							<td>{{ entry.vendredi.format('H:i') }}</td>
+							<td>{{ entry.samedi.format('H:i') }}</td>
+							<td>{{ entry.dimanche.format('H:i') }}</td>
+							<td>
+								<a class="delete-button" href="{{ path('app_rythme_vital_mes_liens_sociaux_delete', {'id' : entry.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce lien social ?')">
+									<img style="width: 50%;" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+								</a>
+								<a href="{{ path('app_rythme_vital_modifier_mes_liens_sociaux', {'id' : entry.id}) }}">
+									<img style="width: 40%;" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+{% endblock %}

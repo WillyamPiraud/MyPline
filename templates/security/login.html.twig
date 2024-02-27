@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block body %}
+
+	<div id="page" class="site">
+		<div class="container">
+			<div class="wrapper">
+				<div class="login">
+					<div class="content-heading">
+						<div class="y-style">
+							<div class="logo">
+								<a href="#">Waou</a>
+							</div>
+							<div class="welcome">
+								<h2>Bienvenue !</h2>
+								<p>Ici, vous allez pouvoir vous connecter</p>
+							</div>
+						</div>
+					</div>
+					<div class="content-form">
+						<div class="y-style">
+							<form method="post">
+								<p>
+									<label for="inputEmail">E-mail</label>
+									<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Entrez votre E-mail">
+								</p>
+								<p>
+									<label for="inputPassword">Mot de passe</label>
+									<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+								</p>
+								<p class="check">
+									<input type="checkbox" id="remember">
+									<label>Se rappeler de moi</label>
+								</p>
+								<p class="forgot">
+									<a href="#">Mot de passe oublier ?</a>
+								</p>
+								<p>
+									<button class="button-submit btn-sub" type="submit">Se connecter</button>
+								</p>
+							</form>
+							<div class="afterform">
+								<p>Vous n'avez pas de compte ?</p>
+								<a href="#" class="t-signup">Créer un compte</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--<form method="post">
+							{% if error %}
+								<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+							{% endif %}
+					
+							{% if app.user %}
+								<div class="mb-3 txt-log">
+									Vous êtes connecter sous
+									<strong>{{ app.user.userIdentifier }}</strong>,
+									<a href="{{ path('app_logout') }}">Vous deconnecter</a>
+								</div>
+							{% endif %}
+							<div class="row container-principal-form">
+								<div class="col-8 mx-auto container-intro">
+									<div class="col-form">
+										<h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+									</div>
+									<div class="col-form">
+										<label for="inputEmail">E-mail</label>
+										<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="E-mail">
+									</div>
+									<div class="col-form">
+										<label for="inputPassword">Mot de passe</label>
+										<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+									</div>
+									<div class="col-form">
+										<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									</div>
+					
+					
+									{#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+																																													See https://symfony.com/doc/current/security/remember_me.html
+																																													
+																																													<div class="checkbox mb-3">
+																																														<label>
+																																															<input type="checkbox" name="_remember_me"> Remember me
+																																														</label>
+																																													</div>#}
+									<div class="col-form">
+										<button class="button-submit btn-sub" type="submit">
+											<span>Se connecter</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>-->
+{% endblock %}

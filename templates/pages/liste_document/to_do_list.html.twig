@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+	<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+{% endblock %}
+
+{% block title %}Waou - Listes
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section style="margin-top: 15%" class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_add_liste') }}">Ajouter</a>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Titre</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for entry in lstToDoList %}
+						<tr>
+							<th scope="row">{{ entry.titre }}</th>
+							<td>
+								<a class="container-relative delete-button" href="{{ path('app_delete_liste', {'id': entry.id })}}" onclick="return confirm('Voulez-vous vraiment supprimer cette liste ?')">
+									<img style="width: 15%;" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+									<div class="info-bubble">Supprimer</div>
+								</a>
+								<a class="container-relative" href="{{ path('app_liste_document_detail_todo', {'id': entry.id }) }}">
+									<img style="width: 10%;" src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+									<div class="info-bubble">Voir</div>
+								</a>
+								<a class="container-relative" href="{{ path('app_liste_document_liste_reset_task', {'id_todo': entry.id }) }}">
+									<img style="width: 10%;" src="{{ asset('img/icon-reset.png') }}" alt="reset">
+									<div class="info-bubble">Reset</div>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+{% endblock %}

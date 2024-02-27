@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Objectifs Sociabilité
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 2rem; width: 100%;">Je consacre déjà une part de mon temps aux autres, à des activités de partage et d’échanges ce qui constitue une part de mon bien être. J’en ai d’ailleurs saisi la liste dans mes routines actuelles.<br>Je souhaite cependant me consacrer à de nouvelles activités complémentaires ou de substitution.<br>Dans cette page, je fixe mes nouvelles aspirations personnelles<br>(Les loisirs sociaux et communautaires sont à indiquer dans Objectifs SOCIABILITÉ)
+				</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'FamilleSociable'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;" href="{{ path('app_rythme_vital_besoins_vitaux') }}">Familles, Conjoints, Enfants
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Ai-je l’objectif personnel de modifier mon temps passé en compagnie de ma famille, mon conjoint, mes enfants ?<br>Mon objectif doit être clair, précis et vérifiable.<br>Exemples : Faire 10Min de lecture à mon fils chaque soir avant sa nuit.<br>Faire une soirée  « apéro » une fois par semaine avec ma femme et en profiter pour renforcer notre communication.<br>Téléphoner chaque dimanche à mes parents.
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="position: relative; border-radius: 0;">
+						<p class="title-statistique">Nombre d'objectifs<br>
+							<span style="font-size: 0.8rem">(en cours)</span>
+						</p>
+						<h3 style="position: relative; border-radius: 0;">{{ countFamille }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Sociabilite', 'idSecteur': 'FamilleSociable', 'typeActivity': 'Sociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'FamilleSociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AmisSociable'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Amis
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Ai-je l’objectif personnel de modifier mon temps passé en compagnie de mes amis proches ?<br>Mon objectif doit être clair, précis et vérifiable.<br>Exemples : Recevoir des amis à la maison  un  dimanche par mois.<br>Partir à la montagne un week-end par an avec mes amis.<br>Aller une fois par trimestre au restaurant avec ma meilleure amie.
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countAmis }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Sociabilite', 'idSecteur': 'AmisSociable', 'typeActivity': 'Sociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AmisSociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'GroupeSociable'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Loisirs de groupe
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Ai-je l’objectif personnel de participer à la vie d’un club, à des ateliers, de faire des sorties de groupe ?<br>Mon objectif doit être clair, précis et vérifiable.<br>Exemples : M’inscrire au club de pétanque de ma commune et participer aux entraînements 2 fois par semaine, m’inscrire à un atelier cuisine et y participer tous les 2 mois.
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countGroupe }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Sociabilite', 'idSecteur': 'GroupeSociable', 'typeActivity': 'Sociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'GroupeSociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'BenevolatSociable'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Bénévolats & Travails<br>Communautaires
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Ai-je l’objectif personnel participer à des projets de bénévolat dans des organismes de bienfaisance ou de participer à un travail communautaire ?<br>Mon objectif doit être clair, précis et vérifiable.<br>Exemples : m’impliquer chaque samedi matin dans des refuges pour animaux.<br>Participer une fois par mois à des activités sociales dans les maisons de retraite.<br>Participer un week-end à un projet de rénovation d’un monument historique.<br>Devenir membre du conseil municipal de ma commune et m’y impliquer.
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countBenevolat }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Sociabilite', 'idSecteur': 'BenevolatSociable', 'typeActivity': 'Sociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'BenevolatSociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EvenementSociable'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Participation à des événements<br>Communautaires
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Ai-je l’objectif personnel d’assister à des événements communautaires ?<br>Mon objectif doit être clair, précis et vérifiable.<br>Exemples : Assister au festival de la bande dessinée de ma commune.<br>Participer à la fête annuelle du quartier.
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countEvenement }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Sociabilite', 'idSecteur': 'EvenementSociable', 'typeActivity': 'Sociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EvenementSociable'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

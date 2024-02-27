@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_ajouter_obligation_familiale' ? 'Ajouter' : 'Modifier') }}
+	une obligation familiale
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_obligation_tempo) }}
+	{#{{ form_start(form_obligation_familiale) }}#}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				{% if app.request.get('_route') == 'app_ajouter_obligation_familiale' %}
+					<h1>Ajouter</h1>
+				{% else %}
+					<h1>{{ titreObligation }}</h1>
+				{% endif %}
+			</div>
+			{#<div class="col-form">
+																																																																																																																																																									{{ form_label(form_obligation_familiale.intitule) }}
+																																																																																																																																																									{{ form_widget(form_obligation_familiale.intitule, {'attr': {'class': 'copy-petit-dejeuner'}}) }}
+																																																																																																																																																									{{ form_errors(form_obligation_familiale.intitule) }}
+																																																																																																																																																								</div>#}
+
+			{% if app.request.get('_route') == 'app_ajouter_obligation_familiale' %}
+				<div class="col-form">
+					{{ form_label(form_obligation_tempo.customfield) }}
+					{{ form_widget(form_obligation_tempo.customfield) }}
+					{{ form_errors(form_obligation_tempo.customfield) }}
+				</div>
+				{% else %}
+			{% endif %}
+			<div class="col-form">
+				<h1>Lundi :</h1>
+				{{ form_label(form_obligation_tempo.lundi_matin) }}
+				{{ form_widget(form_obligation_tempo.lundi_matin, {'attr': {'class': 'copy-petit-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.lundi_matin) }}
+				{{ form_label(form_obligation_tempo.lundi_midi) }}
+				{{ form_widget(form_obligation_tempo.lundi_midi, {'attr': {'class': 'copy-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.lundi_midi) }}
+				{{ form_label(form_obligation_tempo.lundi_soir) }}
+				{{ form_widget(form_obligation_tempo.lundi_soir, {'attr': {'class': 'copy-dinner'}}) }}
+				{{ form_errors(form_obligation_tempo.lundi_soir) }}
+				<button type="button" style="width: 70%; font-size: 1.8rem; margin-top: 1%;" onclick="copyValuesRepas()">Mettre les mêmes valeurs pour chaque jours de la semaine</button>
+			</div>
+			<div class="col-form">
+				<h1>Mardi :</h1>
+				{{ form_label(form_obligation_tempo.mardi_matin) }}
+				{{ form_widget(form_obligation_tempo.mardi_matin, {'attr': {'class': 'petit-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.mardi_matin) }}
+				{{ form_label(form_obligation_tempo.mardi_midi) }}
+				{{ form_widget(form_obligation_tempo.mardi_midi, {'attr': {'class': 'dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.mardi_midi) }}
+				{{ form_label(form_obligation_tempo.mardi_soir) }}
+				{{ form_widget(form_obligation_tempo.mardi_soir, {'attr': {'class': 'dinner'}}) }}
+				{{ form_errors(form_obligation_tempo.mardi_soir) }}
+			</div>
+			<div class="col-form">
+				<h1>Mercredi :</h1>
+				{{ form_label(form_obligation_tempo.mercredi_matin) }}
+				{{ form_widget(form_obligation_tempo.mercredi_matin, {'attr': {'class': 'petit-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.mercredi_matin) }}
+				{{ form_label(form_obligation_tempo.mercredi_midi) }}
+				{{ form_widget(form_obligation_tempo.mercredi_midi, {'attr': {'class': 'dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.mercredi_midi) }}
+				{{ form_label(form_obligation_tempo.mercredi_soir) }}
+				{{ form_widget(form_obligation_tempo.mercredi_soir, {'attr': {'class': 'dinner'}}) }}
+				{{ form_errors(form_obligation_tempo.mercredi_soir) }}
+			</div>
+			<div class="col-form">
+				<h1>Jeudi :</h1>
+				{{ form_label(form_obligation_tempo.jeudi_matin) }}
+				{{ form_widget(form_obligation_tempo.jeudi_matin, {'attr': {'class': 'petit-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.jeudi_matin) }}
+				{{ form_label(form_obligation_tempo.jeudi_midi) }}
+				{{ form_widget(form_obligation_tempo.jeudi_midi, {'attr': {'class': 'dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.jeudi_midi) }}
+				{{ form_label(form_obligation_tempo.jeudi_soir) }}
+				{{ form_widget(form_obligation_tempo.jeudi_soir, {'attr': {'class': 'dinner'}}) }}
+				{{ form_errors(form_obligation_tempo.jeudi_soir) }}
+			</div>
+			<div class="col-form">
+				<h1>Vendredi :</h1>
+				{{ form_label(form_obligation_tempo.vendredi_matin) }}
+				{{ form_widget(form_obligation_tempo.vendredi_matin, {'attr': {'class': 'petit-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.vendredi_matin) }}
+				{{ form_label(form_obligation_tempo.vendredi_midi) }}
+				{{ form_widget(form_obligation_tempo.vendredi_midi, {'attr': {'class': 'dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.vendredi_midi) }}
+				{{ form_label(form_obligation_tempo.vendredi_soir) }}
+				{{ form_widget(form_obligation_tempo.vendredi_soir, {'attr': {'class': 'dinner'}}) }}
+				{{ form_errors(form_obligation_tempo.vendredi_soir) }}
+			</div>
+			<div class="col-form">
+				<h1>Samedi :</h1>
+				{{ form_label(form_obligation_tempo.samedi_matin) }}
+				{{ form_widget(form_obligation_tempo.samedi_matin, {'attr': {'class': 'petit-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.samedi_matin) }}
+				{{ form_label(form_obligation_tempo.samedi_midi) }}
+				{{ form_widget(form_obligation_tempo.samedi_midi, {'attr': {'class': 'dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.samedi_midi) }}
+				{{ form_label(form_obligation_tempo.samedi_soir) }}
+				{{ form_widget(form_obligation_tempo.samedi_soir, {'attr': {'class': 'dinner'}}) }}
+				{{ form_errors(form_obligation_tempo.samedi_soir) }}
+			</div>
+			<div class="col-form">
+				<h1>Dimanche</h1>
+				{{ form_label(form_obligation_tempo.dimanche_matin) }}
+				{{ form_widget(form_obligation_tempo.dimanche_matin, {'attr': {'class': 'petit-dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.dimanche_matin) }}
+				{{ form_label(form_obligation_tempo.dimanche_midi) }}
+				{{ form_widget(form_obligation_tempo.dimanche_midi, {'attr': {'class': 'dejeuner'}}) }}
+				{{ form_errors(form_obligation_tempo.dimanche_midi) }}
+				{{ form_label(form_obligation_tempo.dimanche_soir) }}
+				{{ form_widget(form_obligation_tempo.dimanche_soir, {'attr': {'class': 'dinner'}}) }}
+				{{ form_errors(form_obligation_tempo.dimanche_soir) }}
+			</div>
+			<button type="submit" onclick="submitForms()" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_ajouter_obligation_familiale' ? 'Créer' : 'Modifier') }}</button>
+			{{ form_end(form_obligation_tempo) }}
+		</div>
+	</div>
+	{#{{ form_end(form_obligation_familiale) }}#}
+	<script src="{{ asset('js/autoInput.js') }}"></script>
+{% endblock %}

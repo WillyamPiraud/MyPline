@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Objectifs Activtés Professionnelles
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+	<section class="nav-principal-body nav-body-rythme">
+		<div class="row button-principal-body">
+			<div class="description-menu-button-page col-12" style="margin-bottom: 10%">
+				<h2 style="font-size: 2rem; width: 100%;">Avoir un travail (= une source de revenu) est essentiel à mon bien être et à la réalisation de mes projets de vie.<br>
+					Ce travail doit me plaire, avoir du sens et respecter un bon équilibre entre vie personnelle et vie professionnelle.<br>Dans cette page je fixe mes objectifs personnels d’évolution de ma situation professionnelle.
+				</h2>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'SourcesPro'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;" href="{{ path('app_rythme_vital_besoins_vitaux') }}">Augmenter mes sources<br>professionnelle
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="position: relative; border-radius: 0;">
+						<p class="title-statistique">Nombre d'objectifs<br>
+							<span style="font-size: 0.8rem">(en cours)</span>
+						</p>
+						<h3 style="position: relative; border-radius: 0;">{{ countSources }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Activite', 'idSecteur': 'SourcesPro', 'typeActivity': 'Pro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'SourcesPro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EfficacitePro'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Améliorer mon efficacité<br>& confort au travail
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countEfficacite }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Activite', 'idSecteur': 'EfficacitePro', 'typeActivity': 'Pro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EfficacitePro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EntreprendrePro'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Réorienter mon métier<br>entreprendre
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countEntreprendre }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Activite', 'idSecteur': 'EntreprendrePro', 'typeActivity': 'Pro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EntreprendrePro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EquilibreProPerso'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Équilibrer ma vie professionnelle<br>& personnelle
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countEquilibre }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Activite', 'idSecteur': 'EquilibreProPerso', 'typeActivity': 'Pro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EquilibreProPerso'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="container-relative a-objectif" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EntouragePro'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Mieux m'entourer au travail
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">{{ countEntourage }}</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Activite', 'idSecteur': 'EntouragePro', 'typeActivity': 'Pro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'EntouragePro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+			<div class="menu-principal-body block-rythme" style="margin-bottom: 10%">
+				<div class="col-6 button-menu-icon responsive-top-border" style="border: none;">
+					<a class="a-objectif container-relative" href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AutrePro'}) }}" style="text-decoration: none; color: #fff; padding: 6%; text-align: center; background: radial-gradient(circle, rgba(85,112,246,1) 0%, rgba(70,231,252,1) 100%); font-size: 1.8rem; border: 2px solid #112D4E; font-family: 'Josefin Sans', sans-serif; width: 80%; border-radius: 15px;">Autres objectifs professionnels
+						<div class="info-bubble-ob" style="font-size: 1rem">
+							Je saisit ici mes objectifs de loisirs (Progresser dans un sport, se divertir plus souvent...)
+						</div>
+					</a>
+				</div>
+				<div class="col-6 container-statistique">
+					<a class="button-statistique" style="border-radius: 0;">
+						<h3 style="position: relative;">0</h3>
+					</a>
+					<a href="{{ path('app_form_objectif_add_activite', {'secteur' : 'Activite', 'idSecteur': 'AutrePro', 'typeActivity': 'Pro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-plus.png') }}" alt="modifier">
+						<div class="info-bubble">Ajouter</div>
+					</a>
+					<a href="{{ path('app_objectifs_visualiser_activity', {'idSecteur' : 'AutrePro'}) }}" class="container-relative icon-statistique click">
+						<img src="{{ asset('img/icon-voir.png') }}" alt="modifier">
+						<div class="info-bubble">Visualiser</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Les différentes actions
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section style="margin-top: 15%;" class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_ajouter_pda', {'id' : id_objectif}) }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>Dans cette page, vous pouvez visualiser votre plan d'action</h3>
+			</div>
+			<div class="container-cards">
+				{% for entry in lstPlanAction %}
+					<div class="card">
+						<div class="image-title">
+							<h1 style="border: 2px solid #112D4E; position: relative;">{{ entry.titre }}
+								<h2 style="position: absolute; bottom: 100%; font-size: 1rem;
+																																																																																										    padding: 10px;
+																																																																																										    border: 1px solid #112d4e;
+																																																																																										    border-radius: 40px;
+																																																																																										    text-align: center;">{{ entry.semaine }}</h2>
+							</h1>
+						</div>
+						<div class="container-actions" style="justify-content: center;">
+							<div class="container-action">
+								<a class="container-relative" href="{{ path('app_modifier_pda', {'id_pda' : entry.id, 'id': id_objectif}) }}">
+									<img style="width: 100%;" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+									<div class="info-bubble">Modifier</div>
+								</a>
+								<a class="container-relative delete-button" href="{{ path('app_tache_pda_delete', {'id' : entry.id, 'id_objectif': entry.idObjectif }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cet action ?')">
+									<img style="width: 100%;" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+									<div class="info-bubble">Supprimer</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="container-button-add">
+					<a class="button-add" href="{{ path('app_ajouter_pda', {'id' : id_objectif}) }}">Ajouter</a>
+				</div>
+			</div>
+		</section>
+	{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+	<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+{% endblock %}
+
+{% block title %}Waou - Liste Petites Choses à faire
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_lst_calendrier_choses_a_faire_add') }}">Ajouter</a>
+			<table class="table table-striped">
+				<thead>
+					<tr class="six_columns">
+						<th scope="col" class="intitule" style="width: 30%;">Objet (texte libre)</th>
+						<th scope="col">Date Butoir</th>
+						<th scope="col">Date Prévue</th>
+						<th scope="col">Temps Prévu</th>
+						<th scope="col">Action</th>
+						<th scope="col">Statut</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for entry in lstCalendrierChosesAFaire %}
+						<tr class="six_columns">
+							<th scope="row">{{ entry.intitule }}</th>
+							<td>{{ entry.dateButoir|date('d-m-Y') }}</td>
+							<td class="{% if entry.datePrevue|date('d-m-Y') == dateJour|date('d-m-Y') %}jourJ{% else %}{% endif %}">
+								<p>{{ entry.datePrevue|date('d-m-Y') }}</p>
+							</td>
+							<td>{{ entry.tempsPrevue.format('H:i') }}</td>
+							<td>
+								<a class="container-relative" href="{{ path('app_valider_choses_a_faire', {'id': entry.id}) }}" onclick="return confirm('Voulez-vous vraiment valider cette petite choses à faire ?')">
+									<img style="width: 20%;" src="{{ asset('img/icon-valider-bleu.png') }}">
+									<div class="info-bubble">Valider</div>
+								</a>
+								<a class="container-relative delete-button" href="{{ path('app_lst_calendrier_choses_a_faire_delete', {'id': entry.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette petite choses à faire ?')">
+									<img style="width: 30%;" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+									<div class="info-bubble">Supprimer</div>
+								</a>
+								<a class="container-relative" href="{{ path('app_lst_calendrier_choses_a_faire_modify', {'id' : entry.id}) }}">
+									<img style="width: 20%;" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+									<div class="info-bubble">Modifier</div>
+								</a>
+							</td>
+							<td class="container-relative">
+								<div style="width: 50px; heigth: 50px; border-radius: 50%; text-align: center; font-size: 1.5rem;" class="{% if entry.valide %}case-verte{% else %}case-rouge{% endif %}">-</div>
+								<div class="info-bubble">
+									{% if entry.valide %}
+										Fait le
+										{{ entry.faitLe|date('d/m/Y') }}
+									{% else %}
+										A faire
+									{% endif %}
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste de mes notes
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section style="margin-top: 15%" class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_lst_post_it_notes_add') }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>Dans cette rubrique indiquez vos notes.<br>Peut importe la taille ou la longueur de vos notes.</h3>
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr class="three_columns">
+						<th scope="col" class="intitule" style="width: 30%;">Titre</th>
+						<th scope="col">Date de création</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for entry in lstNotes %}
+						<tr class="three_columns">
+							<th scope="row">{{ entry.titre }}</th>
+							<td>{{ entry.dateCreation|date('d-m-Y') }}</td>
+							<td>
+								<a class="delete-button" href="{{ path('app_delete_note', {'id' : entry.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette activite professionnelle ?')">
+									<img style="width: 15%;" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+								</a>
+								<a href="{{ path('app_lst_post_it_notes_modify', {'id' : entry.id}) }}">
+									<img style="width: 10%;" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+{% endblock %}

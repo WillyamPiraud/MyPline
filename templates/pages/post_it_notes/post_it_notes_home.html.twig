@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Post-it & notes
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="accueil_post_it_notes element-to-scroll">
+		<div class="choice_post_it_or_notes">
+			<a href="{{ path('app_lst_calendrier_choses_a_faire') }}">Mes Post-it</a>
+			<a href="{{ path('app_post_it_notes_mes_notes') }}">Mes Notes</a>
+		</div>
+	</section>
+	<script src="{{ asset('js/animated-circle.js') }}"></script>
+{% endblock %}

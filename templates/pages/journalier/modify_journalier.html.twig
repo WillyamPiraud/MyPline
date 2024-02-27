@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Modifier une tâche
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_task, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>Modifier une tâche</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_task.titre) }}
+				{{ form_widget(form_task.titre) }}
+				{{ form_errors(form_task.titre) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_task.temps_task) }}
+				{{ form_widget(form_task.temps_task) }}
+				{{ form_errors(form_task.temps_task) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">Modifier</button>
+		</div>
+	</div>
+	{{ form_end(form_task) }}
+{% endblock %}

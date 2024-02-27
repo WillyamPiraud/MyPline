@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste des loisirs
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_ajouter_loisir', {'type': type }) }}">Ajouter</a>
+			<div class="container-texte-exemple">
+				<h3>{{ texteIntro }}</h3>
+			</div>
+			<div class="container-cards">
+				{% for entry in lst_obligations %}
+					<div class="card">
+						<div class="image-title">
+							{% if type == "tele_cine" %}
+								<img src="{{ asset('img/cinema-tele.png') }}">
+							{% elseif type == "sport" %}
+								<img src="{{ asset('img/picto-diff-sports.png') }}">
+							{% elseif type == "lecture" %}
+								<img src="{{ asset('img/picto-lecture.png') }}">
+							{% elseif type == "musique" %}
+								<img src="{{ asset('img/picto-musique.png') }}">
+							{% elseif type == "art_creatif" %}
+								<img src="{{ asset('img/picto-art-creatif.png') }}">
+							{% elseif type == "voyage" %}
+								<img src="{{ asset('img/picto-voyage.png') }}">
+							{% elseif type == "jeux" %}
+								<img src="{{ asset('img/picto-jeux.png') }}">
+							{% elseif type == "bien_etre" %}
+								<img src="{{ asset('img/picto-bien-etre.png') }}">
+							{% else %}
+								<img src="{{ asset('img/picto-other.png') }}">
+							{% endif %}
+							<h1>{{ entry.objet }}</h1>
+						</div>
+						<div class="container-actions">
+							<div class="statistique-temps">
+								<p>Usage de mon temps cible
+									<span>(moyenne par jour)</span>
+								</p>
+								{% set totalSeconds = entry.tempsPrevue.getTimestamp() %}
+								{% set averageSecondsPerDay = totalSeconds / 7 %}
+								{% set averagePercentage = (averageSecondsPerDay / (24*3600)) * 100 %}
+								{% set roundedPercentage = (averagePercentage * 2) | round / 2 %}
+								{# arrondi au 0,5% le plus proche #}
+								{% set averageHoursPerDay = averageSecondsPerDay / 3600 %}
+								{% set hours = (averageHoursPerDay * 2) | round / 2 | round(0, 'floor') %}
+								{% set minutes = ((averageHoursPerDay * 60) % 60) | round %}
+								{% set formattedTime = '%02dh%02d'|format(hours, minutes) %}
+								<h2>{{ formattedTime }}</h2>
+								<h2>{{ roundedPercentage }}%</h2>
+							</div>
+							<div class="container-action">
+								<a href="{{ path('app_modifier_loisir', {'type' : entry.getTypeLoisir(),'id' : entry.id}) }}">
+									<img src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+								</a>
+							</div>
+							<div class="statistique-temps">
+								<h2>08:00</h2>
+								<h2>33%</h2>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="container-button-add">
+					<a class="button-add" href="{{ path('app_ajouter_loisir', {'type': type }) }}">Ajouter</a>
+				</div>
+			</div>
+		</section>
+	{% endblock %}

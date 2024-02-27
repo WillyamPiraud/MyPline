@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou - Liste des rendez-vous à prendre
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+{% endblock %}
+{% block body %}
+	<section class="container-list-calendrier element-to-scroll">
+		<div class="container-list row">
+			<a class="button-add" href="{{ path('app_lst_calendrier_rdv_add') }}">Ajouter</a>
+			<table class="table table-striped">
+				<thead>
+					<tr class="six_columns">
+						<th scope="col" style="width: 30%;">Objet (texte libre)</th>
+						<th scope="col">Date du RDV</th>
+						<th scope="col">Temps prévu</th>
+						<th scope="col">Lieu du rdv</th>
+						<th scope="col">Action</th>
+						<th scope="col">statut</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for entry in lstRendezVous %}
+						<tr class="six_columns">
+							<th scope="row">{{ entry.objet }}</th>
+							<td>{{ entry.dateRdv|date('d-m-Y') }}</td>
+							<td>{{ entry.tempsPrevu.format('H:i') }}</td>
+							<td>{{ entry.lieuRdv }}</td>
+							<td>
+								<a class="container-relative" href="{{ path('app_rendez_vous_valide', {'id': entry.id}) }}" onclick="return confirm('Voulez-vous vraiment valider cet evenement ?')">
+									<img style="width: 20%;" src="{{ asset('img/icon-valider-bleu.png') }}">
+									<div class="info-bubble">Valider</div>
+								</a>
+								<a class="container-relative delete-button" href="{{ path('app_lst_calendrier_rdv_delete', {'id': entry.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cet evenement ?')">
+									<img style="width: 30%;" src="{{ asset('img/icon-croix.png') }}" alt="Supprimer">
+									<div class="info-bubble">Supprimer</div>
+								</a>
+								<a class="container-relative" href="{{ path('app_lst_calendrier_rdv_modify', {'id' : entry.id}) }}">
+									<img style="width: 23%;" src="{{ asset('img/icon-modifier.png') }}" alt="modifier">
+									<div class="info-bubble">Modifier</div>
+								</a>
+							</td>
+							<td class="container-relative">
+								<div style="width: 50px; heigth: 50px; border-radius: 50%; text-align: center; font-size: 1.5rem;" class="{% if entry.valide %}case-verte{% else %}case-rouge{% endif %}">-</div>
+								<div class="info-bubble">
+									{% if entry.valide %}
+										Fait
+									{% else %}
+										A faire
+									{% endif %}
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+{% endblock %}

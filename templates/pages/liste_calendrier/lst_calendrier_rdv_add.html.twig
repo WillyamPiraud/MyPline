@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_lst_calendrier_rdv_add' ? 'Créer' : 'Modifier') }}
+	un Rendez-vous à prendre
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_calendrier_rdv, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>{{ (app.request.get('_route') == 'app_lst_calendrier_rdv_add' ? 'Créer' : 'Modifier') }}
+					un Rendez-Vous</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_rdv.objet) }}
+				{{ form_widget(form_calendrier_rdv.objet) }}
+				{{ form_errors(form_calendrier_rdv.objet) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_rdv.date_rdv) }}
+				{{ form_widget(form_calendrier_rdv.date_rdv) }}
+				{{ form_errors(form_calendrier_rdv.date_rdv) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_rdv.temps_prevu) }}
+				{{ form_widget(form_calendrier_rdv.temps_prevu) }}
+				{{ form_errors(form_calendrier_rdv.temps_prevu) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_rdv.telephone) }}
+				{{ form_widget(form_calendrier_rdv.telephone) }}
+				{{ form_errors(form_calendrier_rdv.telephone) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_rdv.horraire) }}
+				{{ form_widget(form_calendrier_rdv.horraire) }}
+				{{ form_errors(form_calendrier_rdv.horraire) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_rdv.lieu_rdv) }}
+				{{ form_widget(form_calendrier_rdv.lieu_rdv) }}
+				{{ form_errors(form_calendrier_rdv.lieu_rdv) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_rdv.frequence) }}
+				{{ form_widget(form_calendrier_rdv.frequence) }}
+				{{ form_errors(form_calendrier_rdv.frequence) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_lst_calendrier_rdv_add' ? 'Créer' : 'Modifier') }}</button>
+		</div>
+	</div>
+	{{ form_end(form_calendrier_rdv) }}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Waou -
+	{{ (app.request.get('_route') == 'app_lst_calendrier_evenement_add' ? 'Créer' : 'Modifier') }}
+	un Événement à  Souhaiter
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('list_calendrier') }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block body %}
+	{{ form_start(form_calendrier_evenement, {'attr': {'class': 'element-to-scroll mb-5'}}) }}
+	<div class="row container-principal-form">
+		<div class="col-8 mx-auto container-intro">
+			<div class="col-form" style="width: 100%;">
+				<h1>{{ (app.request.get('_route') == 'app_lst_calendrier_evenement_add' ? 'Créer' : 'Modifier') }}
+					un Rappel</h1>
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_evenement.evenement) }}
+				{{ form_widget(form_calendrier_evenement.evenement) }}
+				{{ form_errors(form_calendrier_evenement.evenement) }}
+			</div>
+			<div class="col-form">
+				{{ form_label(form_calendrier_evenement.jour_evenement) }}
+				{{ form_widget(form_calendrier_evenement.jour_evenement) }}
+				{{ form_errors(form_calendrier_evenement.jour_evenement) }}
+			</div>
+			<button type="submit" class="button-submit btn-sub mb-3">{{ (app.request.get('_route') == 'app_lst_calendrier_evenement_add' ? 'Créer' : 'Modifier') }}</button>
+		</div>
+	</div>
+	{{ form_end(form_calendrier_evenement) }}
+{% endblock %}
