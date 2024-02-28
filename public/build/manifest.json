@@ -1,0 +1,22 @@
+{
+  "build/headapp.css": "/build/headapp.css",
+  "build/headapp.js": "/build/headapp.js",
+  "build/accueil.css": "/build/accueil.css",
+  "build/accueil.js": "/build/accueil.js",
+  "build/login.css": "/build/login.css",
+  "build/login.js": "/build/login.js",
+  "build/home.css": "/build/home.css",
+  "build/home.js": "/build/home.js",
+  "build/je_decouvre.css": "/build/je_decouvre.css",
+  "build/je_decouvre.js": "/build/je_decouvre.js",
+  "build/mes_objectifs.css": "/build/mes_objectifs.css",
+  "build/mes_objectifs.js": "/build/mes_objectifs.js",
+  "build/list_calendrier.css": "/build/list_calendrier.css",
+  "build/list_calendrier.js": "/build/list_calendrier.js",
+  "build/journalier.css": "/build/journalier.css",
+  "build/journalier.js": "/build/journalier.js",
+  "build/registration.css": "/build/registration.css",
+  "build/registration.js": "/build/registration.js",
+  "build/tinymce.js": "/build/tinymce.js",
+  "build/runtime.js": "/build/runtime.js"
+}

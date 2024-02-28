@@ -1,0 +1,91 @@
+{
+  "entrypoints": {
+    "headapp": {
+      "js": [
+        "/build/runtime.js",
+        "/build/headapp.js"
+      ],
+      "css": [
+        "/build/headapp.css"
+      ]
+    },
+    "accueil": {
+      "js": [
+        "/build/runtime.js",
+        "/build/accueil.js"
+      ],
+      "css": [
+        "/build/accueil.css"
+      ]
+    },
+    "login": {
+      "js": [
+        "/build/runtime.js",
+        "/build/login.js"
+      ],
+      "css": [
+        "/build/login.css"
+      ]
+    },
+    "home": {
+      "js": [
+        "/build/runtime.js",
+        "/build/home.js"
+      ],
+      "css": [
+        "/build/home.css"
+      ]
+    },
+    "je_decouvre": {
+      "js": [
+        "/build/runtime.js",
+        "/build/je_decouvre.js"
+      ],
+      "css": [
+        "/build/je_decouvre.css"
+      ]
+    },
+    "mes_objectifs": {
+      "js": [
+        "/build/runtime.js",
+        "/build/mes_objectifs.js"
+      ],
+      "css": [
+        "/build/mes_objectifs.css"
+      ]
+    },
+    "list_calendrier": {
+      "js": [
+        "/build/runtime.js",
+        "/build/list_calendrier.js"
+      ],
+      "css": [
+        "/build/list_calendrier.css"
+      ]
+    },
+    "journalier": {
+      "js": [
+        "/build/runtime.js",
+        "/build/journalier.js"
+      ],
+      "css": [
+        "/build/journalier.css"
+      ]
+    },
+    "registration": {
+      "js": [
+        "/build/runtime.js",
+        "/build/registration.js"
+      ],
+      "css": [
+        "/build/registration.css"
+      ]
+    },
+    "tinymce": {
+      "js": [
+        "/build/runtime.js",
+        "/build/tinymce.js"
+      ]
+    }
+  }
+}
