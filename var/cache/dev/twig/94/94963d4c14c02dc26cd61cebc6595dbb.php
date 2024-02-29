@@ -2504,6 +2504,6 @@ window.location.href = url;
 });
 </script>
 <script src=\"{{ asset('js/display.js') }}\"></script>{% endblock %}
-", "pages/journalier/journalier.html.twig", "/Users/willyampiraud/Documents/Waou29janv/templates/pages/journalier/journalier.html.twig");
+", "pages/journalier/journalier.html.twig", "/Users/willyampiraud/Documents/MyPlineV2/templates/pages/journalier/journalier.html.twig");
     }
 }

@@ -1441,6 +1441,6 @@ class __TwigTemplate_7ab8efbaa240c32c0af9a01d2b404feb extends Template
         {%- endif -%}
     {% endmacro %}
 {% endblock %}
-", "@WebProfiler/Collector/mailer.html.twig", "/Users/willyampiraud/Documents/Waou29janv/vendor/symfony/web-profiler-bundle/Resources/views/Collector/mailer.html.twig");
+", "@WebProfiler/Collector/mailer.html.twig", "/Users/willyampiraud/Documents/MyPlineV2/vendor/symfony/web-profiler-bundle/Resources/views/Collector/mailer.html.twig");
     }
 }

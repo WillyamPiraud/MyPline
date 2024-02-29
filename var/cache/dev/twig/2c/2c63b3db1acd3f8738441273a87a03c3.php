@@ -243,6 +243,6 @@ class __TwigTemplate_d189fa470fcb6b88f242f2f6c6b962ed extends Template
         </div>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/exception.html.twig", "/Users/willyampiraud/Documents/Waou29janv/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.html.twig");
+", "@WebProfiler/Collector/exception.html.twig", "/Users/willyampiraud/Documents/MyPlineV2/vendor/symfony/web-profiler-bundle/Resources/views/Collector/exception.html.twig");
     }
 }

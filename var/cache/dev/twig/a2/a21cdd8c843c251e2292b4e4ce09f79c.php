@@ -677,6 +677,6 @@ class __TwigTemplate_a1550d1a0b35a11db5f895f06e9a2091 extends Template
         {% endif %}
     </div>
 {% endblock %}
-", "@WebProfiler/Collector/http_client.html.twig", "/Users/willyampiraud/Documents/Waou29janv/vendor/symfony/web-profiler-bundle/Resources/views/Collector/http_client.html.twig");
+", "@WebProfiler/Collector/http_client.html.twig", "/Users/willyampiraud/Documents/MyPlineV2/vendor/symfony/web-profiler-bundle/Resources/views/Collector/http_client.html.twig");
     }
 }
